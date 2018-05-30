@@ -1,0 +1,9 @@
+{
+  "LiferayTheme": {
+    "deployPath": "C:/Users/liferay/code/internship-theme/bundles/deploy",
+    "themeName": "frontend-theme-user-dashboard",
+    "appServerPathTheme": "C:/Users/liferay/code/internship-theme/bundles/tomcat-8.0.32/webapps/frontend-theme-user-dashboard",
+    "deployed": false,
+    "appServerPath": "C:/Users/liferay/code/internship-theme/bundles/tomcat-8.0.32"
+  }
+}
