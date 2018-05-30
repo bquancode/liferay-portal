@@ -4,3 +4,6 @@
 [submodule "nyxl-theme"]
 	path = nyxl-theme
 	url = C:/Users/liferay/code/internship-theme/nyxl-theme
+[submodule "bq-nyxl-theme"]
+	path = bq-nyxl-theme
+	url = https://github.com/bquancode/nyxl-theme.git
