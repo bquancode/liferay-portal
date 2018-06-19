@@ -25,7 +25,7 @@ import com.liferay.document.library.kernel.model.DLFolderConstants;
 import com.liferay.document.library.kernel.service.DLFileEntryLocalService;
 import com.liferay.document.library.kernel.service.DLFileVersionLocalService;
 import com.liferay.document.library.kernel.service.DLFolderLocalService;
-import com.liferay.document.library.kernel.store.DLStoreUtil;
+import com.liferay.document.library.kernel.store.Store;
 import com.liferay.dynamic.data.mapping.internal.util.DDMFieldsCounter;
 import com.liferay.dynamic.data.mapping.internal.util.DDMImpl;
 import com.liferay.dynamic.data.mapping.io.DDMFormJSONDeserializer;
@@ -146,7 +146,8 @@ public class UpgradeDynamicDataMapping extends UpgradeProcess {
 		ExpandoValueLocalService expandoValueLocalService,
 		ResourceActions resourceActions,
 		ResourceLocalService resourceLocalService,
-		ResourcePermissionLocalService resourcePermissionLocalService) {
+		ResourcePermissionLocalService resourcePermissionLocalService,
+		Store store) {
 
 		_assetEntryLocalService = assetEntryLocalService;
 		_ddm = ddm;
@@ -164,6 +165,7 @@ public class UpgradeDynamicDataMapping extends UpgradeProcess {
 		_expandoValueLocalService = expandoValueLocalService;
 		_resourceLocalService = resourceLocalService;
 		_resourcePermissionLocalService = resourcePermissionLocalService;
+		_store = store;
 
 		_dlFolderModelPermissions = ModelPermissionsFactory.create(
 			_DLFOLDER_GROUP_PERMISSIONS, _DLFOLDER_GUEST_PERMISSIONS);
@@ -497,7 +499,7 @@ public class UpgradeDynamicDataMapping extends UpgradeProcess {
 		return templateModelResourceName;
 	}
 
-	protected long getTemplateResourceClassNameId(
+	protected Long getTemplateResourceClassNameId(
 		long classNameId, long classPK) {
 
 		if (classNameId != PortalUtil.getClassNameId(DDMStructure.class)) {
@@ -1343,8 +1345,14 @@ public class UpgradeDynamicDataMapping extends UpgradeProcess {
 
 				// Template resource class name ID
 
-				long resourceClassNameId = getTemplateResourceClassNameId(
+				Long resourceClassNameId = getTemplateResourceClassNameId(
 					classNameId, classPK);
+
+				if (resourceClassNameId == null) {
+					_log.error("Orphaned DDM template " + templateId);
+
+					continue;
+				}
 
 				ps2.setLong(1, resourceClassNameId);
 
@@ -1612,6 +1620,7 @@ public class UpgradeDynamicDataMapping extends UpgradeProcess {
 	private final ResourceLocalService _resourceLocalService;
 	private final ResourcePermissionLocalService
 		_resourcePermissionLocalService;
+	private final Store _store;
 	private final Map<Long, Long> _structureClassNameIds = new HashMap<>();
 	private final Map<Long, Map<String, String>>
 		_structureInvalidDDMFormFieldNamesMap = new HashMap<>();
@@ -2383,10 +2392,10 @@ public class UpgradeDynamicDataMapping extends UpgradeProcess {
 			dlFolder.setLastPostDate(lastPostDate);
 			dlFolder.setDefaultFileEntryTypeId(0);
 			dlFolder.setHidden(false);
+			dlFolder.setRestrictionType(0);
 			dlFolder.setStatus(WorkflowConstants.STATUS_APPROVED);
 			dlFolder.setStatusByUserId(0);
 			dlFolder.setStatusByUserName(StringPool.BLANK);
-			dlFolder.setRestrictionType(0);
 
 			_dlFolderLocalService.updateDLFolder(dlFolder);
 
@@ -2457,7 +2466,7 @@ public class UpgradeDynamicDataMapping extends UpgradeProcess {
 
 		protected File fetchFile(String filePath) throws PortalException {
 			try {
-				return DLStoreUtil.getFile(
+				return _store.getFile(
 					_companyId, CompanyConstants.SYSTEM, filePath);
 			}
 			catch (PortalException pe) {
@@ -2584,7 +2593,7 @@ public class UpgradeDynamicDataMapping extends UpgradeProcess {
 
 				// File
 
-				DLStoreUtil.addFile(_companyId, dlFolderId, name, file);
+				_store.addFile(_companyId, dlFolderId, name, file);
 
 				return fileEntryUuid;
 			}

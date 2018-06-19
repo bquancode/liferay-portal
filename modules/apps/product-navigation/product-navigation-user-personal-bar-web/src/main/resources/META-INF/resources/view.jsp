@@ -44,7 +44,7 @@
 				PortletURL notificationsURL = PortletProviderUtil.getPortletURL(request, UserNotificationEvent.class.getName(), PortletProvider.Action.VIEW);
 				%>
 
-				<aui:a href="<%= notificationsURL != null ? notificationsURL.toString() : null %>">
+				<aui:a href="<%= (notificationsURL != null) ? notificationsURL.toString() : null %>">
 					<span class="panel-notifications-count sticker sticker-right sticker-rounded sticker-sm sticker-warning"><%= notificationsCount %></span>
 				</aui:a>
 			</c:if>
@@ -70,7 +70,7 @@
 		%>
 
 		<span class="sign-in text-default" role="presentation">
-			<aui:a cssClass="sign-in text-default" data="<%= anchorData %>" href="<%= themeDisplay.getURLSignIn() %>" iconCssClass="icon-user" label="sign-in" />
+			<aui:icon cssClass="sign-in text-default" data="<%= anchorData %>" image="user" label="sign-in" markupView="lexicon" url="<%= themeDisplay.getURLSignIn() %>" />
 		</span>
 	</c:otherwise>
 </c:choose>

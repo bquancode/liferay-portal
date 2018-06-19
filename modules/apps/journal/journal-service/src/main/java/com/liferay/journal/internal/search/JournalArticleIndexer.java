@@ -49,7 +49,6 @@ import com.liferay.portal.kernel.search.BooleanClauseOccur;
 import com.liferay.portal.kernel.search.BooleanQuery;
 import com.liferay.portal.kernel.search.DDMStructureIndexer;
 import com.liferay.portal.kernel.search.Document;
-import com.liferay.portal.kernel.search.DocumentImpl;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.IndexWriterHelper;
 import com.liferay.portal.kernel.search.Indexer;
@@ -69,24 +68,32 @@ import com.liferay.portal.kernel.security.permission.resource.ModelResourcePermi
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Constants;
+import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.Portal;
+import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.search.batch.BatchIndexingHelper;
+import com.liferay.portal.search.filter.DateRangeFilterBuilder;
+import com.liferay.portal.search.filter.FilterBuilders;
 import com.liferay.portal.search.index.IndexStatusManager;
 import com.liferay.trash.TrashHelper;
 
 import java.io.Serializable;
 
+import java.text.Format;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -227,6 +234,33 @@ public class JournalArticleIndexer
 		else if (!relatedClassName && showNonindexable) {
 			contextBooleanFilter.addRequiredTerm("headListable", Boolean.TRUE);
 		}
+
+		boolean filterExpired = GetterUtil.getBoolean(
+			searchContext.getAttribute("filterExpired"));
+
+		if (!filterExpired) {
+			return;
+		}
+
+		DateRangeFilterBuilder dateRangeFilterBuilder =
+			_filterBuilders.dateRangeFilterBuilder();
+
+		dateRangeFilterBuilder.setFieldName(Field.EXPIRATION_DATE);
+
+		String formatPattern = PropsUtil.get(
+			PropsKeys.INDEX_DATE_FORMAT_PATTERN);
+
+		dateRangeFilterBuilder.setFormat(formatPattern);
+
+		Format dateFormat = FastDateFormatFactoryUtil.getSimpleDateFormat(
+			formatPattern);
+
+		dateRangeFilterBuilder.setFrom(dateFormat.format(new Date()));
+
+		dateRangeFilterBuilder.setIncludeLower(false);
+		dateRangeFilterBuilder.setIncludeUpper(false);
+
+		contextBooleanFilter.add(dateRangeFilterBuilder.build());
 	}
 
 	@Override
@@ -415,7 +449,7 @@ public class JournalArticleIndexer
 			return Collections.emptyMap();
 		}
 
-		String localizedField = DocumentImpl.getLocalizedName(
+		String localizedField = Field.getLocalizedName(
 			searchContext.getLocale(), field);
 
 		Map<String, Query> queries = new HashMap<>();
@@ -609,8 +643,7 @@ public class JournalArticleIndexer
 
 		Locale snippetLocale = getSnippetLocale(document, locale);
 
-		String localizedTitleName = DocumentImpl.getLocalizedName(
-			locale, Field.TITLE);
+		String localizedTitleName = Field.getLocalizedName(locale, Field.TITLE);
 
 		if ((snippetLocale == null) &&
 			(document.getField(localizedTitleName) == null)) {
@@ -1025,6 +1058,9 @@ public class JournalArticleIndexer
 	private DDMIndexer _ddmIndexer;
 	private DDMStructureLocalService _ddmStructureLocalService;
 	private FieldsToDDMFormValuesConverter _fieldsToDDMFormValuesConverter;
+
+	@Reference
+	private FilterBuilders _filterBuilders;
 
 	@Reference
 	private IndexerRegistry _indexerRegistry;

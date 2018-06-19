@@ -30,7 +30,7 @@ import org.dom4j.tree.DefaultAttribute;
 /**
  * @author Yi-Chen Tsai
  */
-public class PoshiProseStatement {
+public class PoshiProseStatement extends BasePoshiProse {
 
 	public PoshiProseStatement(String proseStatement) {
 		for (String proseKeyword : PoshiProseStatement.KEYWORDS) {
@@ -44,8 +44,20 @@ public class PoshiProseStatement {
 
 		_proseStatement = formatProseStatement(proseStatement);
 
+		String proseStatementMatchingString = getProseStatementMatchingString();
+
 		_poshiProseMatcher = PoshiProseMatcher.getPoshiProseMatcher(
-			getProseStatementMatchingString());
+			proseStatementMatchingString);
+
+		if (_poshiProseMatcher == null) {
+			StringBuilder sb = new StringBuilder();
+
+			sb.append("Unable to find matching prose for '");
+			sb.append(proseStatementMatchingString);
+			sb.append("'");
+
+			throw new RuntimeException(sb.toString());
+		}
 
 		List<String> varNames = _poshiProseMatcher.getVarNames();
 
@@ -90,6 +102,7 @@ public class PoshiProseStatement {
 		}
 	}
 
+	@Override
 	public Element toElement() {
 		Element element = Dom4JUtil.getNewElement(
 			"execute", null,
@@ -136,12 +149,13 @@ public class PoshiProseStatement {
 		return proseStatementMatchingString;
 	}
 
-	protected static final String[] KEYWORDS = {"And", "Given", "Then", "When"};
+	protected static final String[] KEYWORDS =
+		{"*", "And", "Given", "Then", "When"};
 
 	private static final String _LINE_SEPARATOR = System.lineSeparator();
 
 	private static final Pattern _multiLineStringPattern = Pattern.compile(
-		"(?s)\\s*\"\"\"\\s*\\w*\\s*(.*?)\\s*\"\"\"");
+		"(?s)\\s*\"\"\".*?\\R(.*?)\\s*\"\"\"");
 	private static final Pattern _varValuePattern = Pattern.compile(
 		"\"(.*?)\"");
 

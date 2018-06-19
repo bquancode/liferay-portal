@@ -43,11 +43,11 @@ if (layoutSetBranchId > 0) {
 	</c:if>
 
 	<c:if test="<%= lsbne.getType() == LayoutSetBranchNameException.TOO_LONG %>">
-		<liferay-ui:message arguments="<%= new Object[] {4, 100} %>" key="please-enter-a-value-between-x-and-x-characters-long" translateArguments="<%= false %>" />
+		<liferay-ui:message arguments="<%= new Object[] {4, 75} %>" key="please-enter-a-value-between-x-and-x-characters-long" translateArguments="<%= false %>" />
 	</c:if>
 
 	<c:if test="<%= lsbne.getType() == LayoutSetBranchNameException.TOO_SHORT %>">
-		<liferay-ui:message arguments="<%= new Object[] {4, 100} %>" key="please-enter-a-value-between-x-and-x-characters-long" translateArguments="<%= false %>" />
+		<liferay-ui:message arguments="<%= new Object[] {4, 75} %>" key="please-enter-a-value-between-x-and-x-characters-long" translateArguments="<%= false %>" />
 	</c:if>
 </liferay-ui:error>
 
@@ -63,7 +63,7 @@ if (layoutSetBranch != null) {
 	<liferay-util:param name="navigationName" value="<%= title %>" />
 </liferay-util:include>
 
-<div class="container-fluid-1280" data-namespace="<portlet:namespace />" id="<portlet:namespace /><%= layoutSetBranch != null ? "updateBranch" : "addBranch" %>">
+<div class="container-fluid-1280" data-namespace="<portlet:namespace />" id="<portlet:namespace /><%= (layoutSetBranch != null) ? "updateBranch" : "addBranch" %>">
 	<aui:model-context bean="<%= layoutSetBranch %>" model="<%= LayoutSetBranch.class %>" />
 
 	<portlet:actionURL name="editLayoutSetBranch" var="editLayoutSetBranchURL">

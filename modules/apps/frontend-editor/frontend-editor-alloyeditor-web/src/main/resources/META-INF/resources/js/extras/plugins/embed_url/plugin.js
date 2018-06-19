@@ -3,7 +3,7 @@ import Resizer from './Resizer.es';
 if (!CKEDITOR.plugins.get('embedurl')) {
 	const REGEX_HTTP = /^https?/;
 
-	CKEDITOR.DEFAULT_LFR_EMBED_WIDGET_TPL = '<div data-embed-url="{url}">{content}<div class="embed-help-message">{helpMessageIcon}<span> {helpMessage}</span></div></div><br>';
+	CKEDITOR.DEFAULT_LFR_EMBED_WIDGET_TPL = '<div data-embed-url="{url}" class="embed-responsive embed-responsive-16by9">{content}<div class="embed-help-message">{helpMessageIcon}<span> {helpMessage}</span></div></div><br>';
 
 	/**
 	 * Enum for supported embed alignments
@@ -145,15 +145,19 @@ if (!CKEDITOR.plugins.get('embedurl')) {
 
 	const getSelectedElement = function(editor) {
 		const result = {
-			alignement: null,
+			alignment: null,
 			element: null
 		};
 
-		const selectedElement = editor.getSelection().getSelectedElement();
+		const selection = editor.getSelection();
 
-		if (selectedElement && selectedElement.getAttribute('data-cke-widget-wrapper')) {
-			result.alignement = getEmbedAlignment(selectedElement);
-			result.element = selectedElement;
+		if (selection) {
+			const selectedElement = selection.getSelectedElement();
+
+			if (selectedElement && selectedElement.getAttribute('data-cke-widget-wrapper')) {
+				result.alignment = getEmbedAlignment(selectedElement);
+				result.element = selectedElement;
+			}
 		}
 
 		return result;
@@ -162,8 +166,11 @@ if (!CKEDITOR.plugins.get('embedurl')) {
 	const resizeElement = function(el, width, height) {
 		const wrapperElement = el.parentElement;
 
-		if (wrapperElement) {
-			const style = `width:${width}px;height:${height}px`;
+		if (wrapperElement && (width > 0) && (height > 0)) {
+			const rect = wrapperElement.getBoundingClientRect();
+
+			const pwidth = width >= rect.width ? 100 : Math.floor((width / rect.width) * 100);
+			const style = `width:${pwidth}%;`;
 
 			wrapperElement.setAttribute('style', style);
 
@@ -185,6 +192,39 @@ if (!CKEDITOR.plugins.get('embedurl')) {
 				}
 			}
 		}
+	};
+
+	const selectWidget = function(editor) {
+		setTimeout(
+			() => {
+				const selection = editor.getSelection();
+
+				if (selection) {
+					const wrapperElement = selection.root.find('[data-cke-widget-wrapper]');
+
+					if (wrapperElement) {
+						const elementList = wrapperElement.$;
+						if (elementList.length > 0) {
+							const lastElement = new CKEDITOR.dom.element(elementList[elementList.length - 1]);
+
+							const imageElement = lastElement.findOne('img');
+							const widgetElement = lastElement.findOne('[data-widget="embedurl"]');
+
+							if (imageElement && widgetElement) {
+								const range = editor.createRange();
+
+								range.setStart(widgetElement, 0);
+								range.setEnd(imageElement, 1);
+
+								selection.selectRanges([range]);
+								selection.selectElement(lastElement);
+							}
+						}
+					}
+				}
+			},
+			0
+		);
 	};
 
 	let currentAlignment = null;
@@ -252,6 +292,8 @@ if (!CKEDITOR.plugins.get('embedurl')) {
 						upcastWidget = widgetFragment.children[0];
 
 						upcastWidget.attributes['data-styles'] = JSON.stringify(element.styles);
+						upcastWidget.removeClass('embed-responsive');
+						upcastWidget.removeClass('embed-responsive-16by9');
 
 						element.replaceWith(upcastWidget);
 					}
@@ -342,29 +384,27 @@ if (!CKEDITOR.plugins.get('embedurl')) {
 							if (!styles) {
 								const iframe = instance.wrapper.findOne('iframe');
 
+								const bounds = instance.wrapper.$.getBoundingClientRect();
+								const width = iframe.getAttribute('width');
+
+								const pwidth = width >= bounds.width ? 100 : Math.round((width / bounds.width) * 100);
+
 								styles = {
-									height: `${iframe.getAttribute('height')}px`,
-									width: `${iframe.getAttribute('width')}px`
+									width: `${pwidth}%`
 								};
 							}
 
 							instance.wrapper.setAttribute('style', CKEDITOR.tools.writeCssText(styles));
 
 							if (editor._selectEmbedWidget === event.data.url) {
-								setTimeout(
-									() => {
-										editor.getSelection().selectElement(instance.wrapper);
-
-										editor._selectEmbedWidget = null;
-									},
-									0
-								);
+								selectWidget(editor);
 							}
 						},
 
 						downcast(widget) {
 							const embedContent = widget.children[0];
 
+							embedContent.attributes.class = 'embed-responsive embed-responsive-16by9';
 							embedContent.attributes.style = CKEDITOR.tools.writeCssText(widget.parent.styles);
 
 							return embedContent;
@@ -382,6 +422,7 @@ if (!CKEDITOR.plugins.get('embedurl')) {
 					'resize',
 					() => {
 						resizer.hide();
+						selectWidget(editor);
 					},
 					false
 				);
@@ -424,6 +465,9 @@ if (!CKEDITOR.plugins.get('embedurl')) {
 									resizer.show(imageElement.$);
 								}
 							}
+							else {
+								resizer.hide();
+							}
 						}
 					}
 				);
@@ -459,7 +503,7 @@ if (!CKEDITOR.plugins.get('embedurl')) {
 				const mouseDownListener = event => {
 					const result = getSelectedElement(editor);
 
-					currentAlignment = result.alignement;
+					currentAlignment = result.alignment;
 					currentElement = result.element;
 
 					if (resizer.isHandle(event.target)) {
@@ -476,6 +520,7 @@ if (!CKEDITOR.plugins.get('embedurl')) {
 							if (currentAlignment && currentElement) {
 								setEmbedAlignment(currentElement, currentAlignment);
 							}
+							selectWidget(editor);
 						}
 					}
 				);
@@ -511,6 +556,7 @@ if (!CKEDITOR.plugins.get('embedurl')) {
 											currentAlignment = getEmbedAlignment(selectedElement);
 
 											const imageElement = selectedElement.findOne('img');
+
 											if (imageElement) {
 												resizer.show(imageElement.$);
 											}

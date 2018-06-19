@@ -168,6 +168,8 @@
 		<execute function="Select" locator1="APConfigurationDisplaysettings#ASSET_LINK_BEHAVIOR_SELECT" value1="${assetLinkBehavior}" />
 
 		<execute macro="PortletEntry#save" />
+
+		<execute macro="IFrame#closeFrame" />
 	</command>
 
 	<command name="configureAssetTypePG">
@@ -214,6 +216,8 @@
 		<execute macro="Panel#expandPanel">
 			<var name="panel" value="Filter" />
 		</execute>
+
+		<execute function="Click" locator1="APConfiguration#RULE_BUILDER_ADD_CONDITION" />
 
 		<execute function="Select" locator1="APConfiguration#FILTER_CATEGORIZATION_SELECT" value1="Categories" />
 
