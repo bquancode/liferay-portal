@@ -1,0 +1,11 @@
+;
+; Do not manually edit this file.
+;
+[subrepo]
+	autopull = false
+	cmdver = liferay
+	commit = 101c56a703e38cdf7ce1ba9e3f6e2e7472080dc4
+	mergebuttonmergecommits = false
+	mode = push
+	parent = aa967fa053879a90428505ce893eb1f06fd34979
+	remote = git@github.com:liferay/com-liferay-portlet-display-template.git

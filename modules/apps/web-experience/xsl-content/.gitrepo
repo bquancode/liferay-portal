@@ -1,0 +1,11 @@
+;
+; Do not manually edit this file.
+;
+[subrepo]
+	autopull = false
+	cmdver = liferay
+	commit = dcbdfba389c75eab8aa13fcc3306249c17502fde
+	mergebuttonmergecommits = false
+	mode = push
+	parent = c5522da7fa4f94eecffbe5d17db6afe6b482b5d4
+	remote = git@github.com:liferay/com-liferay-xsl-content.git

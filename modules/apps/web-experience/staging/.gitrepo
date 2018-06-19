@@ -1,0 +1,11 @@
+;
+; Do not manually edit this file.
+;
+[subrepo]
+	autopull = false
+	cmdver = liferay
+	commit = 0e50b3000e684dfe52d1cf85344ac536a96666e8
+	mergebuttonmergecommits = false
+	mode = push
+	parent = 6b119425790ea30db3fea21182d75443b55789e1
+	remote = git@github.com:liferay/com-liferay-staging.git

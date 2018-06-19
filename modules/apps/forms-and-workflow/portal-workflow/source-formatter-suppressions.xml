@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+<suppressions>
+	<source-check>
+		<suppress checks="JavaModuleInternalImportsCheck" files="modules/apps/forms-and-workflow/portal-workflow/portal-workflow-web/src/main/java/com/liferay/portal/workflow/web/internal/portlet/UserWorkflowControlPanelEntry\.java" />
+	</source-check>
+</suppressions>

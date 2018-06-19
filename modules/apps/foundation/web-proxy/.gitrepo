@@ -1,0 +1,11 @@
+;
+; Do not manually edit this file.
+;
+[subrepo]
+	autopull = false
+	cmdver = liferay
+	commit = a318c0672f8b3b1ea94b6263c82a11894fa0abe3
+	mergebuttonmergecommits = false
+	mode = push
+	parent = f332f2a9bc5776e411de2fd932f6fd048d9e9671
+	remote = git@github.com:liferay/com-liferay-web-proxy.git

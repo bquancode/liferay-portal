@@ -1,0 +1,11 @@
+;
+; Do not manually edit this file.
+;
+[subrepo]
+	autopull = false
+	cmdver = liferay
+	commit = 4b1612ad4b803a9e203d524472b39ca214b94405
+	mergebuttonmergecommits = false
+	mode = push
+	parent = b6250edbf325e659ae62112e2da9fb2e315704aa
+	remote = git@github.com:liferay/com-liferay-document-library.git

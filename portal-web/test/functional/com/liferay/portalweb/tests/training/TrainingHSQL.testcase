@@ -1,0 +1,4911 @@
+<definition component-name="portal-training">
+	<property name="liferay.training.dependency.jars" value="src/01-liferay-fundamentals/02-integrating-identity-management/com.liferay.docs.samplecontent-1.0.0.jar" />
+	<property name="portal.release" value="false" />
+	<property name="portal.upstream" value="false" />
+	<property name="setup.wizard.enabled" value="true" />
+	<property name="test.prepare.bundle.properties" value="false" />
+	<property name="testray.main.component.name" value="Setup Wizard" />
+
+	<command name="TrainingDemo1" priority="5">
+		<property name="database.types" value="hypersonic" />
+		<property name="liferay.training.dependency.jars" value="src/01-liferay-fundamentals/02-integrating-identity-management/com.liferay.docs.samplecontent-1.0.0.jar" />
+		<property name="test.name.skip.portal.instance" value="TrainingHSQL#TrainingDemo1" />
+		<property name="testray.component.names" value="Training" />
+
+		<execute macro="SetupWizard#configurePG">
+			<var name="addSampleData" value="false" />
+			<var name="administratorEmail" value="space.admin@spaceprogram.liferay.com" />
+			<var name="administratorFirstName" value="Space" />
+			<var name="administratorLastName" value="Admin" />
+			<var name="databaseName" value="lportal1" />
+			<var method="TestPropsUtil#get('database.hypersonic.password')" name="databasePassword" />
+			<var name="databaseType" value="Hypersonic" />
+			<var method="TestPropsUtil#get('database.hypersonic.username')" name="databaseUserName" />
+			<var method="TestPropsUtil#get('database.hypersonic.driver')" name="jdbcDriverClassName" />
+			<var method="TestPropsUtil#get('database.hypersonic.url')" name="jdbcURL" />
+			<var name="portalName" value="S.P.A.C.E" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Configuration" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Server Administration" />
+		</execute>
+
+		<execute macro="ServerAdministration#executeServerResourcesActions">
+			<var name="actionsDescription" value="Reindex all search indexes." />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="User#addCP">
+			<var name="userEmailAddress" value="userea@liferay.com" />
+			<var name="userFirstName" value="userfn" />
+			<var name="userLastName" value="userln" />
+			<var name="userScreenName" value="usersn" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="User#editPasswordCP">
+			<var name="administratorEmail" value="space.admin@spaceprogram.liferay.com" />
+			<var name="userEmailAddress" value="userea@liferay.com" />
+			<var name="userScreenName" value="usersn" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="User#assignRegularRoleCP">
+			<var name="roleName" value="Administrator" />
+			<var name="userScreenName" value="usersn" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="Portlet#addPG">
+			<var name="pageName" value="Mock LDAP Page" />
+			<var name="portletName" value="Mock LDAP" />
+		</execute>
+
+		<execute macro="MockLDAP#selectJsonFile">
+			<var name="fileName" value="space-groups.json" />
+			<var name="tabName" value="User Groups" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="User Groups" />
+		</execute>
+
+		<execute macro="Pagination#changePagination">
+			<var name="itemsPerPage" value="20" />
+		</execute>
+
+		<execute macro="Pagination#viewResults">
+			<var name="results" value="Showing 1 to 11 of 11 entries." />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="MockLDAP#selectJsonFile">
+			<var name="fileName" value="space-users.json" />
+			<var name="tabName" value="Users" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="Pagination#changePagination">
+			<var name="itemsPerPage" value="20" />
+		</execute>
+
+		<execute macro="Pagination#viewResults">
+			<var name="results" value="Showing 1 to 20 of 116 entries." />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="UsersAndOrganizationsNavigator#gotoOrganizations" />
+
+		<execute macro="LAR#importPortlet">
+			<var name="larFileName" value="organizations-7.0.lar" />
+			<var name="uploadFrom" value="dependencies" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="UsersAndOrganizationsNavigator#gotoOrganizations" />
+
+		<execute macro="Organization#addMemberCP">
+			<var name="orgName" value="Space Program Academy of Continuing Education" />
+			<var name="userFirstName" value="userfn" />
+			<var name="userLastName" value="userln" />
+			<var name="userScreenName" value="usersn" />
+		</execute>
+
+		<for list="College of Agricultural Science,College of Business,College of Engineering,Accounting,Business Administration,Department of Aeronautics,Department of Astronautics,Aerospace Engineering,Civil Engineering,Computer Engineering,Electrical Engineering,Mechanical Engineering" param="suborgName">
+			<execute macro="Navigator#openURL" />
+
+			<execute macro="ProductMenu#gotoPortlet">
+				<var name="category" value="Users" />
+				<var name="panel" value="Control Panel" />
+				<var name="portlet" value="Users and Organizations" />
+			</execute>
+
+			<execute macro="UsersAndOrganizationsNavigator#gotoOrganizations" />
+
+			<execute macro="Organization#addSiteCP">
+				<var name="orgName" value="${suborgName}" />
+				<var name="orgType" value="Organization" />
+			</execute>
+
+			<execute macro="Navigator#gotoBack" />
+
+			<execute macro="Organization#manageMembershipOptionsInSites">
+				<var name="allowManualMembershipManagement" value="true" />
+				<var name="orgName" value="${suborgName}" />
+			</execute>
+		</for>
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="College of Agricultural Science" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Members" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Site Memberships" />
+		</execute>
+
+		<execute macro="Site#assignUserGroupAsMemberCP">
+			<var name="userGroupName" value="Agricultural Science" />
+		</execute>
+
+		<for list="Accounting,Business Administration" param="siteName">
+			<execute macro="ProductMenu#gotoSite">
+				<var name="site" value="${siteName}" />
+			</execute>
+
+			<execute macro="ProductMenu#gotoPortlet">
+				<var name="category" value="Members" />
+				<var name="panel" value="Site Administration" />
+				<var name="portlet" value="Site Memberships" />
+			</execute>
+
+			<execute macro="Site#assignUserGroupAsMemberCP">
+				<var name="userGroupName" value="Business: ${siteName}" />
+			</execute>
+		</for>
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Department of Aeronautics" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Members" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Site Memberships" />
+		</execute>
+
+		<execute macro="Site#assignUserGroupAsMemberCP">
+			<var name="userGroupName" value="Engineering: Aerospace Engineering: Aeronautics" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Department of Astronautics" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Members" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Site Memberships" />
+		</execute>
+
+		<execute macro="Site#assignUserGroupAsMemberCP">
+			<var name="userGroupName" value="Engineering: Aerospace Engineering: Astronautics" />
+		</execute>
+
+		<for list="Civil Engineering,Computer Engineering,Electrical Engineering,Mechanical Engineering" param="siteName">
+			<execute macro="ProductMenu#gotoSite">
+				<var name="site" value="${siteName}" />
+			</execute>
+
+			<execute macro="ProductMenu#gotoPortlet">
+				<var name="category" value="Members" />
+				<var name="panel" value="Site Administration" />
+				<var name="portlet" value="Site Memberships" />
+			</execute>
+
+			<execute macro="Site#assignUserGroupAsMemberCP">
+				<var name="userGroupName" value="Engineering: ${siteName}" />
+			</execute>
+		</for>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="UsersAndOrganizationsNavigator#gotoOrganizations" />
+
+		<execute macro="Organization#addMemberCP">
+			<var name="orgName" value="College of Agricultural Science" />
+			<var name="userFirstName" value="Wolfgang" />
+			<var name="userLastName" value="von Richter" />
+			<var name="userScreenName" value="w.vonrichter" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="UsersAndOrganizationsNavigator#gotoOrganizations" />
+
+		<execute macro="Organization#addMemberCP">
+			<var name="orgName" value="Accounting" />
+			<var name="userFirstName" value="Jane" />
+			<var name="userLastName" value="Phillips" />
+			<var name="userScreenName" value="j.phillips" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="UsersAndOrganizationsNavigator#gotoOrganizations" />
+
+		<execute macro="Organization#addMemberCP">
+			<var name="orgName" value="Business Administration" />
+			<var name="userFirstName" value="Oliver" />
+			<var name="userLastName" value="Wainwright" />
+			<var name="userScreenName" value="o.wainwright" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="UsersAndOrganizationsNavigator#gotoOrganizations" />
+
+		<execute macro="Organization#addMemberCP">
+			<var name="orgName" value="Aerospace Engineering" />
+			<var name="userFirstName" value="Josefina" />
+			<var name="userLastName" value="Suarez" />
+			<var name="userScreenName" value="j.suarez" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="UsersAndOrganizationsNavigator#gotoOrganizations" />
+
+		<execute macro="Organization#addMemberCP">
+			<var name="orgName" value="Department of Aeronautics" />
+			<var name="userFirstName" value="Andrew" />
+			<var name="userLastName" value="Washington" />
+			<var name="userScreenName" value="a.washington" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="UsersAndOrganizationsNavigator#gotoOrganizations" />
+
+		<execute macro="Organization#addMemberCP">
+			<var name="orgName" value="Department of Astronautics" />
+			<var name="userFirstName" value="Peter" />
+			<var name="userLastName" value="Vance" />
+			<var name="userScreenName" value="p.vance" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="UsersAndOrganizationsNavigator#gotoOrganizations" />
+
+		<execute macro="Organization#addMemberCP">
+			<var name="orgName" value="Civil Engineering" />
+			<var name="userFirstName" value="Glen" />
+			<var name="userLastName" value="Powers" />
+			<var name="userScreenName" value="g.powers" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="UsersAndOrganizationsNavigator#gotoOrganizations" />
+
+		<execute macro="Organization#addMemberCP">
+			<var name="orgName" value="Computer Engineering" />
+			<var name="userFirstName" value="Harriet" />
+			<var name="userLastName" value="Winters" />
+			<var name="userScreenName" value="h.winters" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="UsersAndOrganizationsNavigator#gotoOrganizations" />
+
+		<execute macro="Organization#addMemberCP">
+			<var name="orgName" value="Electrical Engineering" />
+			<var name="userFirstName" value="Margaret" />
+			<var name="userLastName" value="Walker" />
+			<var name="userScreenName" value="m.walker" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="UsersAndOrganizationsNavigator#gotoOrganizations" />
+
+		<execute macro="Organization#addMemberCP">
+			<var name="orgName" value="Mechanical Engineering" />
+			<var name="userFirstName" value="Leo" />
+			<var name="userLastName" value="Blythe" />
+			<var name="userScreenName" value="l.blythe" />
+		</execute>
+
+		<execute macro="User#logoutAndLoginPG">
+			<var name="userLoginEmailAddress" value="userea@liferay.com" />
+			<var name="userLoginFullName" value="userfn userln" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="UsersAndOrganizationsNavigator#gotoOrganizations" />
+
+		<execute macro="Organization#assignOrgRoleCP">
+			<var name="orgName" value="College of Agricultural Science" />
+			<var name="roleName" value="Organization Administrator" />
+			<var name="userFirstName" value="Wolfgang" />
+			<var name="userLastName" value="von Richter" />
+			<var name="userScreenName" value="w.vonrichter" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="UsersAndOrganizationsNavigator#gotoOrganizations" />
+
+		<execute macro="Organization#assignOrgRoleCP">
+			<var name="orgName" value="Accounting" />
+			<var name="roleName" value="Organization Administrator" />
+			<var name="userFirstName" value="Jane" />
+			<var name="userLastName" value="Phillips" />
+			<var name="userScreenName" value="j.phillips" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="UsersAndOrganizationsNavigator#gotoOrganizations" />
+
+		<execute macro="Organization#assignOrgRoleCP">
+			<var name="orgName" value="Business Administration" />
+			<var name="roleName" value="Organization Administrator" />
+			<var name="userFirstName" value="Oliver" />
+			<var name="userLastName" value="Wainwright" />
+			<var name="userScreenName" value="o.wainwright" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="UsersAndOrganizationsNavigator#gotoOrganizations" />
+
+		<execute macro="Organization#assignOrgRoleCP">
+			<var name="orgName" value="Aerospace Engineering" />
+			<var name="roleName" value="Organization Administrator" />
+			<var name="userFirstName" value="Josefina" />
+			<var name="userLastName" value="Suarez" />
+			<var name="userScreenName" value="j.suarez" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="UsersAndOrganizationsNavigator#gotoOrganizations" />
+
+		<execute macro="Organization#assignOrgRoleCP">
+			<var name="orgName" value="Department of Aeronautics" />
+			<var name="roleName" value="Organization Administrator" />
+			<var name="userFirstName" value="Andrew" />
+			<var name="userLastName" value="Washington" />
+			<var name="userScreenName" value="a.washington" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="UsersAndOrganizationsNavigator#gotoOrganizations" />
+
+		<execute macro="Organization#assignOrgRoleCP">
+			<var name="orgName" value="Department of Astronautics" />
+			<var name="roleName" value="Organization Administrator" />
+			<var name="userFirstName" value="Peter" />
+			<var name="userLastName" value="Vance" />
+			<var name="userScreenName" value="p.vance" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="UsersAndOrganizationsNavigator#gotoOrganizations" />
+
+		<execute macro="Organization#assignOrgRoleCP">
+			<var name="orgName" value="Civil Engineering" />
+			<var name="roleName" value="Organization Administrator" />
+			<var name="userFirstName" value="Glen" />
+			<var name="userLastName" value="Powers" />
+			<var name="userScreenName" value="g.powers" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="UsersAndOrganizationsNavigator#gotoOrganizations" />
+
+		<execute macro="Organization#assignOrgRoleCP">
+			<var name="orgName" value="Computer Engineering" />
+			<var name="roleName" value="Organization Administrator" />
+			<var name="userFirstName" value="Harriet" />
+			<var name="userLastName" value="Winters" />
+			<var name="userScreenName" value="h.winters" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="UsersAndOrganizationsNavigator#gotoOrganizations" />
+
+		<execute macro="Organization#assignOrgRoleCP">
+			<var name="orgName" value="Electrical Engineering" />
+			<var name="roleName" value="Organization Administrator" />
+			<var name="userFirstName" value="Margaret" />
+			<var name="userLastName" value="Walker" />
+			<var name="userScreenName" value="m.walker" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="UsersAndOrganizationsNavigator#gotoOrganizations" />
+
+		<execute macro="Organization#assignOrgRoleCP">
+			<var name="orgName" value="Mechanical Engineering" />
+			<var name="roleName" value="Organization Administrator" />
+			<var name="userFirstName" value="Leo" />
+			<var name="userLastName" value="Blythe" />
+			<var name="userScreenName" value="l.blythe" />
+		</execute>
+
+		<execute macro="User#logoutPG" />
+
+		<execute macro="User#loginPG">
+			<var name="password" value="liferay" />
+			<var name="userEmailAddress" value="harriet.winters@spaceprogram.liferay.com" />
+		</execute>
+
+		<execute macro="User#logoutAndLoginPG">
+			<var name="userLoginEmailAddress" value="userea@liferay.com" />
+			<var name="userLoginFullName" value="userfn userln" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="College of Engineering" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Members" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Site Memberships" />
+		</execute>
+
+		<execute macro="Site#assignSiteRoleCP">
+			<var name="resourceName" value="Harriet Winters" />
+			<var name="roleName" value="Site Administrator" />
+		</execute>
+
+		<execute macro="User#logoutAndLoginPG">
+			<var name="userLoginEmailAddress" value="harriet.winters@spaceprogram.liferay.com" />
+			<var name="userLoginFullName" value="Harriet Winters" />
+		</execute>
+
+		<execute macro="User#logoutAndLoginPG">
+			<var name="userLoginEmailAddress" value="userea@liferay.com" />
+			<var name="userLoginFullName" value="userfn userln" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="S.P.A.C.E" />
+		</execute>
+
+		<execute macro="Page#add">
+			<var name="pageName" value="Colleges" />
+			<var name="siteName" value="S.P.A.C.E" />
+			<var name="sitePageType" value="Page Set" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Sites" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Sites" />
+		</execute>
+
+		<execute macro="Page#addChild">
+			<var name="page" value="Public Pages" />
+			<var name="pageName" value="Colleges" />
+			<var name="pageTypeURL" value="/web/college-of-agricultural-science" />
+			<var name="siteChildPageName" value="College of Agricultural Science" />
+			<var name="siteName" value="S.P.A.C.E" />
+			<var name="sitePageType" value="Link to URL" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Sites" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Sites" />
+		</execute>
+
+		<execute macro="Page#addChild">
+			<var name="page" value="Public Pages" />
+			<var name="pageName" value="Colleges" />
+			<var name="pageTypeURL" value="/web/college-of-busuness" />
+			<var name="siteChildPageName" value="College of Business" />
+			<var name="siteName" value="S.P.A.C.E" />
+			<var name="sitePageType" value="Link to URL" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Sites" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Sites" />
+		</execute>
+
+		<execute macro="Page#addChild">
+			<var name="page" value="Public Pages" />
+			<var name="pageName" value="Colleges" />
+			<var name="pageTypeURL" value="/web/college-of-engineering" />
+			<var name="siteChildPageName" value="College of Engineering" />
+			<var name="siteName" value="S.P.A.C.E" />
+			<var name="sitePageType" value="Link to URL" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Sites" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Page Templates" />
+		</execute>
+
+		<execute macro="LAR#importPortlet">
+			<var name="larFileName" value="college-and-department-page-templates.lar" />
+			<var name="uploadFrom" value="dependencies" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<for list="College of Agricultural Science,College of Business,College of Engineering" param="siteName">
+			<execute macro="ProductMenu#gotoPortlet">
+				<var name="category" value="Sites" />
+				<var name="panel" value="Control Panel" />
+				<var name="portlet" value="Sites" />
+			</execute>
+
+			<execute macro="Page#add">
+				<var name="pageName" value="Home" />
+				<var name="pageTemplateName" value="College Landing Page" />
+				<var name="siteName" value="${siteName}" />
+			</execute>
+		</for>
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="College of Business" />
+		</execute>
+
+		<execute macro="Page#add">
+			<var name="pageName" value="Departments" />
+			<var name="siteName" value="College of Business" />
+			<var name="sitePageType" value="Page Set" />
+		</execute>
+
+		<for list="Accounting,Business Administration" param="childPageName">
+			<execute macro="ProductMenu#gotoPortlet">
+				<var name="category" value="Sites" />
+				<var name="panel" value="Control Panel" />
+				<var name="portlet" value="Sites" />
+			</execute>
+
+			<var method="StringUtil#replace('${childPageName}', ' ', '-')" name="key_partialURL" />
+			<var method="StringUtil#lowerCase('${key_partialURL}')" name="key_partialURL" />
+
+			<execute macro="Page#addChild">
+				<var name="page" value="Public Pages" />
+				<var name="pageName" value="Departments" />
+				<var name="pageTypeURL" value="/web/${key_partialURL}" />
+				<var name="siteChildPageName" value="${childPageName}" />
+				<var name="siteName" value="College of Business" />
+				<var name="sitePageType" value="Link to URL" />
+			</execute>
+		</for>
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="College of Engineering" />
+		</execute>
+
+		<execute macro="Page#add">
+			<var name="pageName" value="Departments" />
+			<var name="siteName" value="College of Engineering" />
+			<var name="sitePageType" value="Page Set" />
+		</execute>
+
+		<for list="Department of Aeronautics,Department of Astronautics,Aerospace Engineering,Civil Engineering,Computer Engineering,Electrical Engineering,Mechanical Engineering" param="childPageName">
+			<execute macro="ProductMenu#gotoPortlet">
+				<var name="category" value="Sites" />
+				<var name="panel" value="Control Panel" />
+				<var name="portlet" value="Sites" />
+			</execute>
+
+			<var method="StringUtil#replace('${childPageName}', ' ', '-')" name="key_partialURL" />
+			<var method="StringUtil#lowerCase('${key_partialURL}')" name="key_partialURL" />
+
+			<execute macro="Page#addChild">
+				<var name="page" value="Public Pages" />
+				<var name="pageName" value="Departments" />
+				<var name="pageTypeURL" value="/web/${key_partialURL}" />
+				<var name="siteChildPageName" value="${childPageName}" />
+				<var name="siteName" value="College of Engineering" />
+				<var name="sitePageType" value="Link to URL" />
+			</execute>
+		</for>
+
+		<for list="Accounting,Business Administration,Aerospace Engineering,Civil Engineering,Computer Engineering,Electrical Engineering,Mechanical Engineering" param="siteName">
+			<execute macro="ProductMenu#gotoPortlet">
+				<var name="category" value="Sites" />
+				<var name="panel" value="Control Panel" />
+				<var name="portlet" value="Sites" />
+			</execute>
+
+			<execute macro="Page#add">
+				<var name="pageName" value="Home" />
+				<var name="pageTemplateName" value="Department Landing Page" />
+				<var name="siteName" value="${siteName}" />
+			</execute>
+		</for>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Sites" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Page Templates" />
+		</execute>
+
+		<execute macro="PageTemplate#gotoPageTemplateViaEdit">
+			<var name="pageTemplateName" value="Department Landing Page" />
+		</execute>
+
+		<execute function="SelectWindow" locator1="title=Department Landing Page - S.P.A.C.E" />
+
+		<execute macro="Portlet#addPG">
+			<var name="portletName" value="Blogs" />
+		</execute>
+
+		<execute function="Close#closeWindow" locator1="title=Department Landing Page - S.P.A.C.E" />
+
+		<execute function="SelectWindow" locator1="title=Page Templates - Control Panel - S.P.A.C.E" />
+
+		<execute macro="Navigator#gotoSitePage">
+			<var name="pageName" value="Home" />
+			<var name="siteName" value="Accounting" />
+		</execute>
+
+		<execute macro="Portlet#viewPG">
+			<var name="portletName" value="Blogs" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="College of Engineering" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Bookmarks" />
+		</execute>
+
+		<execute macro="Bookmark#addCP">
+			<var name="bookmarkDescription" value="This is a list of Scholarship from the American Institute of Aeronautics and Astronautics (AIAA)!" />
+			<var name="bookmarkName" value="List of Scholarship from the American Institute of Aeronautics and Astronautics (AIAA)" />
+			<var name="bookmarkURL" value="https://www.aiaa.org/Secondary.aspx?id=3199" />
+			<var name="trailingSlash" value="false" />
+		</execute>
+
+		<execute macro="Navigator#openSiteURL">
+			<var name="siteName" value="College of Engineering" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Bookmarks" />
+		</execute>
+
+		<execute macro="Bookmark#addCP">
+			<var name="bookmarkDescription" value="This is an Iowa Space Grant Fellowship Program!" />
+			<var name="bookmarkName" value="Iowa Space Grant Fellowship Program" />
+			<var name="bookmarkURL" value="http://www.iaspacegrant.org/sites/default/files/2016-2017_isgc_fell_final.pdf" />
+			<var name="trailingSlash" value="false" />
+		</execute>
+
+		<execute macro="Navigator#openSiteURL">
+			<var name="siteName" value="College of Engineering" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Bookmarks" />
+		</execute>
+
+		<execute macro="Bookmark#addCP">
+			<var name="bookmarkDescription" value="This is the list of Scholarships from the International Space University!" />
+			<var name="bookmarkName" value="List of Scholarships from the International Space University" />
+			<var name="bookmarkURL" value="http://www.isunet.edu/admissions/funding-scholarships" />
+			<var name="trailingSlash" value="false" />
+		</execute>
+
+		<execute macro="Navigator#openSiteURL">
+			<var name="siteName" value="College of Engineering" />
+		</execute>
+
+		<execute macro="SitePageNavigator#gotoEditPage">
+			<var name="page" value="Home" />
+		</execute>
+
+		<execute macro="Page#togglePageTemplateInheritChanges">
+			<var name="toggleValue" value="disable" />
+		</execute>
+
+		<execute macro="PortletEntry#save" />
+
+		<execute macro="Navigator#openSiteURL">
+			<var name="siteName" value="College of Engineering" />
+		</execute>
+
+		<execute macro="Portlet#gotoPortletOptions">
+			<var name="portletName" value="Bookmarks" />
+			<var name="portletOption" value="Look and Feel Configuration" />
+		</execute>
+
+		<execute macro="Portlet#configureCustomTitleViaLookandfeelPG">
+			<var name="customPortletTitle" value="Scholarships" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="Page#add">
+			<var name="pageName" value="Mechanical Engineering 101" />
+			<var name="siteName" value="Mechanical Engineering" />
+			<var name="sitePagePrivacy" value="Private" />
+		</execute>
+
+		<execute macro="User#logoutPG" />
+
+		<execute macro="User#loginPG">
+			<var name="password" value="liferay" />
+			<var name="userEmailAddress" value="sally.beech@spaceprogram.liferay.com" />
+		</execute>
+
+		<execute macro="Navigator#openPrivateSitePageURL">
+			<var name="pageName" value="Mechanical Engineering 101" />
+			<var name="siteName" value="Mechanical Engineering" />
+		</execute>
+
+		<execute function="AssertTextEquals" locator1="Home#ERROR_MESSAGE_ALERT_ERROR" value1="Not Found" />
+
+		<execute macro="User#logoutAndLoginPG">
+			<var name="userLoginEmailAddress" value="userea@liferay.com" />
+			<var name="userLoginFullName" value="userfn userln" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Sites" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Site Templates" />
+		</execute>
+
+		<execute macro="LAR#importPortlet">
+			<var name="larFileName" value="class-site-template-7.0.lar" />
+			<var name="portletName" value="Site Templates" />
+			<var name="uploadFrom" value="dependencies" />
+		</execute>
+
+		<execute macro="SiteTemplates#viewCP">
+			<var name="siteTemplateName" value="Digital Class Room" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Sites" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Sites" />
+		</execute>
+
+		<execute macro="Site#addBlankCP">
+			<var name="membershipType" value="Private" />
+			<var name="parentSiteName" value="College of Agricultural Science" />
+			<var name="siteName" value="Moon Rocks 101" />
+			<var name="siteType" value="Blank" />
+		</execute>
+
+		<execute macro="Site#selectPageType">
+			<var name="selectPrivatePages" value="true" />
+			<var name="siteTemplate" value="Digital Class Room" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Moon Rocks 101" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Members" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Site Memberships" />
+		</execute>
+
+		<execute macro="Site#assignUserAsMemberCP">
+			<var name="userFirstName" value="Edward" />
+			<var name="userLastName" value="Knight" />
+			<var name="userScreenName" value="e.knight" />
+		</execute>
+
+		<execute macro="Site#assignSiteRoleCP">
+			<var name="resourceName" value="Edward Knight" />
+			<var name="roleName" value="Site Administrator" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Roles" />
+		</execute>
+
+		<execute macro="Role#addCP">
+			<var name="roleDescription" value="Content Team Writers generate content to display on College and Department Pages." />
+			<var name="roleName" value="Content Team Writer" />
+			<var name="roleType" value="Organization" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Roles" />
+		</execute>
+
+		<execute macro="Role#viewCP">
+			<var name="roleName" value="Content Team Writer" />
+			<var name="roleType" value="Organization" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Roles" />
+		</execute>
+
+		<execute macro="Role#definePermissionsCP">
+			<var name="permissionDefinitionKeys" value="SITE_ADMIN_CONTENT_WEB_CONTENT_GENERAL_PERMISSIONS_ACCESS_IN_SITE_ADMINISTRATION_CHECKBOX,SITE_ADMIN_CONTENT_WEB_CONTENT_GENERAL_PERMISSIONS_VIEW_CHECKBOX,SITE_ADMIN_CONTENT_WEB_CONTENT_RESOURCE_PERMISSIONS_WEB_CONTENT_ADD_FOLDER_CHECKBOX,SITE_ADMIN_CONTENT_WEB_CONTENT_RESOURCE_PERMISSIONS_WEB_CONTENT_VIEW_CHECKBOX,SITE_ADMIN_CONTENT_WEB_CONTENT_RESOURCE_PERMISSIONS_WEB_CONTENT_FOLDER_ADD_SUBFOLDER_CHECKBOX,SITE_ADMIN_CONTENT_WEB_CONTENT_RESOURCE_PERMISSIONS_WEB_CONTENT_FOLDER_ADD_WEB_CONTENT_CHECKBOX,SITE_ADMIN_CONTENT_WEB_CONTENT_RESOURCE_PERMISSIONS_WEB_CONTENT_FOLDER_VIEW_CHECKBOX,SITE_ADMIN_CONTENT_WEB_CONTENT_RESOURCE_PERMISSIONS_WEB_CONTENT_ARTICLE_UPDATE_CHECKBOX,SITE_ADMIN_CONTENT_DOCUMENTS_AND_MEDIA_GENERAL_PERMISSIONS_ACCESS_IN_SITE_ADMINISTRATION_CHECKBOX,SITE_ADMIN_CONTENT_DOCUMENTS_AND_MEDIA_RESOURCE_PERMISSIONS_DOCUMENTS_ADD_FOLDER_CHECKBOX,SITE_ADMIN_CONTENT_DOCUMENTS_AND_MEDIA_RESOURCE_PERMISSIONS_DOCUMENTS_VIEW_CHECKBOX,SITE_ADMIN_CONTENT_DOCUMENTS_AND_MEDIA_RESOURCE_PERMISSIONS_DOCUMENTS_FOLDER_ADD_SUBFOLDER_CHECKBOX,SITE_ADMIN_CONTENT_DOCUMENTS_AND_MEDIA_GENERAL_PERMISSIONS_VIEW_CHECKBOX,SITE_ADMIN_CONTENT_DOCUMENTS_AND_MEDIA_RESOURCE_PERMISSIONS_DOCUMENTS_FOLDER_ADD_DOCUMENT_CHECKBOX,SITE_ADMIN_CONTENT_DOCUMENTS_AND_MEDIA_RESOURCE_PERMISSIONS_DOCUMENTS_FOLDER_VIEW_CHECKBOX,SITE_ADMIN_CONTENT_DOCUMENTS_AND_MEDIA_RESOURCE_PERMISSIONS_DOCUMENT_UPDATE_CHECKBOX" />
+			<var name="roleName" value="Content Team Writer" />
+			<var name="roleType" value="Organization" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Moon Rocks 101" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Documents and Media" />
+		</execute>
+
+		<execute macro="LAR#importPortlet">
+			<var name="larFileName" value="moon-rocks-101-materials-structure.lar" />
+			<var name="uploadFrom" value="dependencies" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Moon Rocks 101" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Documents and Media" />
+		</execute>
+
+		<execute macro="DMFolder#gotoCP">
+			<var name="dmFolderName" value="Unit 1 - Moon Rock Chemistry" />
+		</execute>
+
+		<execute macro="DMFolder#gotoCP">
+			<var name="dmFolderName" value="The Properties of Moon Rocks" />
+		</execute>
+
+		<execute macro="DMFolder#gotoCP">
+			<var name="dmFolderName" value="Audio Lectures" />
+		</execute>
+
+		<execute macro="DMDocument#addCP">
+			<var name="dmDocumentDescription" value="DM Document Description" />
+			<var name="dmDocumentFile" value="Dr. Winters Introductory Audio Lecture.ogg" />
+			<var name="dmDocumentTitle" value="Dr. Winters Introductory Audio Lecture.ogg" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Moon Rocks 101" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Documents and Media" />
+		</execute>
+
+		<execute function="Click" locator1="Icon#DISPLAY_STYLE_DESCRIPTIVE" />
+
+		<execute macro="DMFolder#gotoCP">
+			<var name="dmFolderName" value="Unit 1 - Moon Rock Chemistry" />
+		</execute>
+
+		<execute function="Click" locator1="Icon#DISPLAY_STYLE_DESCRIPTIVE" />
+
+		<execute macro="DMFolder#gotoCP">
+			<var name="dmFolderName" value="The Properties of Moon Rocks" />
+		</execute>
+
+		<execute macro="DMFolder#removePermissions">
+			<var name="dmFolder" value="Audio Lectures" />
+			<var name="permissionNameList" value="ADD_DOCUMENT,ADD_SHORTCUT,ADD_SUBFOLDER" />
+			<var name="roleName" value="Site Member" />
+		</execute>
+
+		<execute macro="IFrame#closeFrame" />
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Moon Rocks 101" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Documents and Media" />
+		</execute>
+
+		<execute macro="LAR#importPortlet">
+			<var name="larFileName" value="moon-rocks-101-assignment-structure.lar" />
+			<var name="uploadFrom" value="dependencies" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Moon Rocks 101" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Documents and Media" />
+		</execute>
+
+		<execute macro="DMFolder#removePermissions">
+			<var name="dmFolder" value="Class Syllabus and Assignments" />
+			<var name="permissionNameList" value="ADD_DOCUMENT,ADD_SHORTCUT,ADD_SUBFOLDER" />
+			<var name="roleName" value="Site Member" />
+		</execute>
+
+		<execute macro="IFrame#closeFrame" />
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Moon Rocks 101" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Documents and Media" />
+		</execute>
+
+		<execute macro="DMFolder#removePermissions">
+			<var name="dmFolder" value="Assignment Submission" />
+			<var name="permissionNameList" value="ADD_DOCUMENT,ADD_SHORTCUT,ADD_SUBFOLDER" />
+			<var name="roleName" value="Site Member" />
+		</execute>
+
+		<execute macro="IFrame#closeFrame" />
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Moon Rocks 101" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Message Boards" />
+		</execute>
+
+		<execute macro="LAR#importPortlet">
+			<var name="larFileName" value="space-message-boards.lar" />
+			<var name="uploadFrom" value="dependencies" />
+		</execute>
+
+		<execute macro="Navigator#openPrivateSitePageURL">
+			<var name="pageName" value="Student Boards" />
+			<var name="siteName" value="Moon Rocks 101" />
+		</execute>
+
+		<execute macro="MessageboardsCategory#viewPG">
+			<var name="categoryDescription" value="General Discussions for students to have about the happenings at S.P.A.C.E." />
+			<var name="categoryDescriptionEnabled" value="true" />
+			<var name="categoryName" value="General Discussion" />
+		</execute>
+
+		<execute macro="MessageboardsThread#gotoPG">
+			<var name="lastPostUserName" value="userfn userln" />
+			<var name="postCount" value="5" />
+			<var name="threadBody" value="Super embarrassing, but does anybody know what to do when the Anti-Gravity Chamber door gets stuck and maintenance has gone for the day? Yesterday was the second time I’ve been in there all night, and I have to say, not liking the ambience." />
+			<var name="threadSubject" value="Stuck in the Anti-Gravity Chamber" />
+		</execute>
+
+		<execute macro="MessageboardsThread#viewPG">
+			<var name="threadBody" value="Super embarrassing, but does anybody know what to do when the Anti-Gravity Chamber door gets stuck and maintenance has gone for the day? Yesterday was the second time I’ve been in there all night, and I have to say, not liking the ambience." />
+			<var name="threadSubject" value="Stuck in the Anti-Gravity Chamber" />
+			<var name="userName" value="userfn userln" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="S.P.A.C.E" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Wiki" />
+		</execute>
+
+		<execute macro="LAR#importPortlet">
+			<var name="larFileName" value="space-history-wiki.lar" />
+			<var name="uploadFrom" value="dependencies" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Sites" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Sites" />
+		</execute>
+
+		<execute macro="Page#add">
+			<var name="pageName" value="Wiki" />
+			<var name="pageTemplateName" value="Wiki" />
+			<var name="siteName" value="S.P.A.C.E" />
+		</execute>
+
+		<execute macro="Navigator#gotoSitePage">
+			<var name="pageName" value="Wiki" />
+			<var name="siteName" value="S.P.A.C.E" />
+		</execute>
+
+		<execute macro="WikiNavigator#gotoPG">
+			<var name="wikiPageTitle" value="FrontPage" />
+		</execute>
+
+		<execute macro="WikiPage#viewFrontPagePG">
+			<var name="wikiPageContent" value="Located in Provincetown, MA, S.P.A.C.E. (Space Program Academy of Continuing Education) was founded in February of 2063 by its current Board of Governors members—Dr. Edith Adams, Dr. Harold Vance, Antony Carelli, and Victoria Allen—as a fully-accredited, internationally-run school for students interested in pursuing a wide range of space-related careers. S.P.A.C.E. also serves as a research center for faculty. S.P.A.C.E.’s foundation came about largely as a result of skyrocketing interest in space-related careers and the limitations on The Space Program." />
+		</execute>
+
+		<for list="FrontPage,Board of Governors,Board of Governors,The Space Program,Antony Carelli,Dr. Harold Vance,Victoria Allen,Dr. Asmund Grey" param="wikiPageTitle">
+			<execute macro="WikiNavigator#gotoAllPagesPG" />
+
+			<execute macro="WikiNavigator#gotoPG">
+				<var name="wikiPageTitle" value="${wikiPageTitle}" />
+			</execute>
+		</for>
+
+		<execute macro="WikiPage#viewPG">
+			<var name="wikiPageContent" value="Dr. Asmund Grey, first and current president of S.P.A.C.E., was born Asmund Andrew Grey March 22, 2029 to Drs. Albert and Anita Grey in Stratford-upon-Avon, England." />
+			<var name="wikiPageTitle" value="Dr. Asmund Grey" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Global" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Forms" />
+		</execute>
+
+		<execute macro="LexiconEntry#gotoAdd" />
+
+		<execute macro="Form#editName">
+			<var name="formName" value="Student Feedback Form" />
+		</execute>
+
+		<execute macro="Form#editDescription">
+			<var name="formDescription" value="Leave feedback for your class to make S.P.A.C.E. a better place for all." />
+		</execute>
+
+		<execute macro="Form#editPageTitle">
+			<var name="formPageName" value="Student Feedback Form" />
+		</execute>
+
+		<execute macro="Form#gotoAddField">
+			<var name="fieldType" value="Text Field" />
+		</execute>
+
+		<execute macro="Form#editFieldLabel">
+			<var name="fieldValue" value="Class" />
+		</execute>
+
+		<execute macro="FormFields#editHelpText">
+			<var name="fieldHelpText" value="class code here" />
+			<var name="fieldName" value="tip" />
+		</execute>
+
+		<execute macro="FormFields#enableSwitcher">
+			<var name="fieldName" value="required" />
+		</execute>
+
+		<execute macro="FormFields#save" />
+
+		<execute macro="Form#gotoAddField">
+			<var name="fieldType" value="Text Field" />
+		</execute>
+
+		<execute macro="Form#editFieldLabel">
+			<var name="fieldValue" value="Professor" />
+		</execute>
+
+		<execute macro="FormFields#enableSwitcher">
+			<var name="fieldName" value="required" />
+		</execute>
+
+		<execute macro="FormFields#save" />
+
+		<execute macro="Form#gotoAddField">
+			<var name="fieldType" value="Select from List" />
+		</execute>
+
+		<execute macro="Form#editFieldLabel">
+			<var name="fieldValue" value="I ENJOY THE CLASS" />
+		</execute>
+
+		<execute macro="FormFields#editHelpText">
+			<var name="fieldHelpText" value="Select how much you agree with the above statement" />
+			<var name="fieldName" value="tip" />
+		</execute>
+
+		<execute macro="FormFields#enableSwitcher">
+			<var name="fieldName" value="required" />
+		</execute>
+
+		<execute macro="FormFields#editOptionsRow">
+			<var name="optionValue" value="Strongly Agree" />
+		</execute>
+
+		<execute macro="FormFields#editOptionsRow">
+			<var name="optionValue" value="Agree" />
+			<var name="rowNumber" value="2" />
+		</execute>
+
+		<execute macro="FormFields#editOptionsRow">
+			<var name="optionValue" value="Neutral" />
+			<var name="rowNumber" value="3" />
+		</execute>
+
+		<execute macro="FormFields#editOptionsRow">
+			<var name="optionValue" value="Disagree" />
+			<var name="rowNumber" value="4" />
+		</execute>
+
+		<execute macro="FormFields#editOptionsRow">
+			<var name="optionValue" value="Strongly Disagree" />
+			<var name="rowNumber" value="5" />
+		</execute>
+
+		<execute macro="FormFields#save" />
+
+		<execute macro="Form#gotoAddField">
+			<var name="fieldType" value="Multiple Selection" />
+		</execute>
+
+		<execute macro="Form#editFieldLabel">
+			<var name="fieldValue" value="I FELT PREPARED FOR THE CLASS" />
+		</execute>
+
+		<execute macro="FormFields#enableSwitcher">
+			<var name="fieldName" value="Switcher" />
+		</execute>
+
+		<execute macro="FormFields#editOptionsRow">
+			<var name="optionValue" value="I felt prepared for the class" />
+		</execute>
+
+		<execute macro="FormFields#save" />
+
+		<execute macro="Form#gotoAddField">
+			<var name="fieldType" value="Multiple Selection" />
+		</execute>
+
+		<execute macro="Form#editFieldLabel">
+			<var name="fieldValue" value="THIS CLASS WAS DIFFICULT" />
+		</execute>
+
+		<execute macro="FormFields#enableSwitcher">
+			<var name="fieldName" value="Switcher" />
+		</execute>
+
+		<execute macro="FormFields#editOptionsRow">
+			<var name="optionValue" value="This class was difficult" />
+		</execute>
+
+		<execute macro="FormFields#save" />
+
+		<execute macro="Form#gotoAddField">
+			<var name="fieldType" value="Multiple Selection" />
+		</execute>
+
+		<execute macro="Form#editFieldLabel">
+			<var name="fieldValue" value="I LEARNED NEW SKILLS" />
+		</execute>
+
+		<execute macro="FormFields#enableSwitcher">
+			<var name="fieldName" value="Switcher" />
+		</execute>
+
+		<execute macro="FormFields#editOptionsRow">
+			<var name="optionValue" value="I learned new skills" />
+		</execute>
+
+		<execute macro="FormFields#save" />
+
+		<execute macro="Form#gotoAddField">
+			<var name="fieldType" value="Multiple Selection" />
+		</execute>
+
+		<execute macro="Form#editFieldLabel">
+			<var name="fieldValue" value="THE PROFESSOR WAS GREAT" />
+		</execute>
+
+		<execute macro="FormFields#enableSwitcher">
+			<var name="fieldName" value="Switcher" />
+		</execute>
+
+		<execute macro="FormFields#editOptionsRow">
+			<var name="optionValue" value="The professor was great" />
+		</execute>
+
+		<execute macro="FormFields#save" />
+
+		<execute macro="Form#gotoAddField">
+			<var name="fieldType" value="Text Field" />
+		</execute>
+
+		<execute macro="Form#editFieldLabel">
+			<var name="fieldValue" value="ADDITIONAL COMMENTS" />
+		</execute>
+
+		<execute macro="FormFields#editHelpText">
+			<var name="fieldHelpText" value="Enter any other comments you have about the class" />
+			<var name="fieldName" value="tip" />
+		</execute>
+
+		<execute macro="FormFields#selectTextFieldLineOption">
+			<var name="textFieldLineOption" value="multiline" />
+		</execute>
+
+		<execute macro="FormFields#save" />
+
+		<execute macro="Form#save" />
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Global" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Forms" />
+		</execute>
+
+		<execute macro="FormsAdmin#viewForm">
+			<var name="formDescription" value="Leave feedback for your class to make S.P.A.C.E. a better place for all." />
+			<var name="formName" value="Student Feedback Form" />
+		</execute>
+
+		<execute macro="FormsAdminNavigator#gotoPermissions">
+			<var name="formName" value="Student Feedback Form" />
+			<var name="menuItem" value="Permissions" />
+		</execute>
+
+		<execute macro="Role#definePermissionPG">
+			<var name="permissionDefinitionKey" value="CONTENT_PERMISSIONS_ADD_RECORD_CHECKBOX" />
+			<var name="roleName" value="Power User" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="Page#add">
+			<var name="columnName" value="1 Column" />
+			<var name="pageName" value="Class Feedback" />
+			<var name="siteName" value="Moon Rocks 101" />
+			<var name="sitePagePrivacy" value="Private" />
+			<var name="sitePageType" value="Empty Page" />
+		</execute>
+
+		<execute macro="Portlet#addPG">
+			<var name="pageName" value="Class Feedback" />
+			<var name="portletName" value="Form" />
+		</execute>
+
+		<execute macro="FormPortletConfiguration#configureScopePG">
+			<var name="portletName" value="Form" />
+			<var name="scopeSelection" value="Global" />
+		</execute>
+
+		<execute macro="FormPortletConfiguration#selectForm">
+			<var name="formName" value="Student Feedback Form" />
+		</execute>
+
+		<execute macro="PortletEntry#save" />
+
+		<execute macro="Navigator#openPrivateSitePageURL">
+			<var name="pageName" value="Class Feedback" />
+			<var name="siteName" value="Moon Rocks 101" />
+		</execute>
+
+		<execute macro="FormFields#editText">
+			<var name="fieldName" value="Class" />
+			<var name="fieldValue" value="MR-1001" />
+		</execute>
+
+		<execute macro="FormFields#editText">
+			<var name="fieldName" value="Professor" />
+			<var name="fieldValue" value="Edward Knight" />
+		</execute>
+
+		<execute macro="FormFields#editTextMultiline">
+			<var name="fieldName" value="ADDITIONALCOMMENTS" />
+			<var name="fieldValue" value="Liferay is awesome!" />
+		</execute>
+
+		<execute macro="FormFields#selectSelectOption">
+			<var name="fieldName" value="IENJOYTHECLASS" />
+			<var name="selectOption" value="Strongly Agree" />
+		</execute>
+
+		<for list="THE PROFESSOR WAS GREAT,I LEARNED NEW SKILLS,THIS CLASS WAS DIFFICULT,I FELT PREPARED FOR THE CLASS" param="fieldName">
+			<var method="StringUtil#replace('${fieldName}', ' ', '')" name="fieldName" />
+
+			<execute macro="FormFields#enableSwitcher">
+				<var name="fieldName" value="${fieldName}" />
+			</execute>
+		</for>
+
+		<execute macro="FormPortlet#submit" />
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Global" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Forms" />
+		</execute>
+
+		<execute macro="FormsAdminNavigator#gotoViewEntries" />
+
+		<execute macro="FormsAdminNavigator#gotoView" />
+
+		<execute macro="FormsAdmin#viewTextEntry">
+			<var name="fieldLabel" value="Class" />
+			<var name="fieldName" value="Class" />
+			<var name="fieldValue" value="MR-1001" />
+		</execute>
+
+		<execute macro="FormsAdmin#viewTextEntry">
+			<var name="fieldLabel" value="Professor" />
+			<var name="fieldName" value="Professor" />
+			<var name="fieldValue" value="Edward Knight" />
+		</execute>
+
+		<execute macro="FormsAdmin#viewMultilineTextEntry">
+			<var name="fieldLabel" value="ADDITIONAL COMMENTS" />
+			<var name="fieldName" value="ADDITIONALCOMMENTS" />
+			<var name="fieldValue" value="Liferay is awesome!" />
+		</execute>
+
+		<execute macro="FormsAdmin#viewSelectEntry">
+			<var name="fieldLabel" value="I ENJOY THE CLASS" />
+			<var name="fieldName" value="IENJOYTHECLASS" />
+			<var name="selectOption" value="Strongly Agree" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Global" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Forms" />
+		</execute>
+
+		<execute macro="LAR#exportPortlet">
+			<var name="larFileName" value="FormsExport.lar" />
+		</execute>
+
+		<execute function="Pause" locator1="5000" />
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Configuration" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Workflow Definition" />
+		</execute>
+
+		<execute macro="Workflow#uploadDefinition">
+			<var name="workflowDefinitionFile" value="assignment-grading.xml" />
+			<var name="workflowDefinitionTitle" value="Assignment Grading Process" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Moon Rocks 101" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Documents and Media" />
+		</execute>
+
+		<execute macro="Workflow#configureWorkflowViaPortlet">
+			<var name="workflowDefinition" value="Assignment Grading Process (Version 1)" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Moon Rocks 101" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Members" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Site Memberships" />
+		</execute>
+
+		<execute macro="Site#assignUserGroupAsMemberCP">
+			<var name="userGroupName" value="Agricultural Science" />
+		</execute>
+
+		<execute macro="User#logoutPG" />
+
+		<execute macro="User#loginPG">
+			<var name="password" value="liferay" />
+			<var name="userEmailAddress" value="iefan.owain@spaceprogram.liferay.com" />
+		</execute>
+
+		<execute macro="Navigator#openPrivateSitePageURL">
+			<var name="pageName" value="Materials" />
+			<var name="siteName" value="Moon Rocks 101" />
+		</execute>
+
+		<execute macro="DMNavigator#gotoFolder">
+			<var name="dmFolderName" value="Assignment Submission" />
+		</execute>
+
+		<execute macro="DMNavigator#gotoFolder">
+			<var name="dmFolderName" value="Unit 1 Moon Geography" />
+		</execute>
+
+		<execute macro="DMNavigator#gotoFolder">
+			<var name="dmFolderName" value="Chapter 1 Worksheet" />
+		</execute>
+
+		<execute macro="DMDocument#addWithWorkflowCP">
+			<var name="dmDocumentDescription" value="DM Document Description" />
+			<var name="dmDocumentFile" value="Document_1.docx" />
+			<var name="dmDocumentTitle" value="DM Document Title" />
+		</execute>
+
+		<execute macro="User#logoutPG" />
+
+		<execute macro="User#loginPG">
+			<var name="password" value="liferay" />
+			<var name="userEmailAddress" value="edward.knight@spaceprogram.liferay.com" />
+		</execute>
+
+		<execute macro="Notifications#viewBadgeCount">
+			<var name="notificationCount" value="1" />
+		</execute>
+
+		<execute macro="Notifications#gotoNotifications" />
+
+		<execute macro="Notifications#gotoNotificationsEntry">
+			<var name="notificationsWorkflowTitle" value="A students has submitted an assignment for grading!" />
+		</execute>
+
+		<execute function="Click" locator1="Icon#BODY_VERTICAL_ELLIPSIS" />
+
+		<execute function="AssertClick" locator1="MenuItem#ANY_MENU_ITEM" value1="Assign to Me">
+			<var name="key_menuItem" value="Assign to Me" />
+		</execute>
+
+		<execute macro="IFrame#selectDialogFrame" />
+
+		<execute macro="Button#clickDone" />
+
+		<execute function="SelectFrameTop" />
+
+		<execute macro="Alert#viewSuccessMessage" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="My Account" />
+			<var name="panel" value="User" />
+			<var name="portlet" value="Notifications" />
+		</execute>
+
+		<execute macro="Notifications#gotoNotificationsEntry">
+			<var name="notificationsWorkflowTitle" value="A students has submitted an assignment for grading!" />
+		</execute>
+
+		<execute function="Click" locator1="Icon#BODY_VERTICAL_ELLIPSIS" />
+
+		<execute function="AssertClick" locator1="MenuItem#ANY_MENU_ITEM" value1="Mark as Graded">
+			<var name="key_menuItem" value="Mark as Graded" />
+		</execute>
+
+		<execute function="SelectFrame" locator1="xpath=(//div[contains(@class,'modal-dialog')])" />
+
+		<execute macro="Button#clickDone" />
+
+		<execute function="SelectFrameTop" />
+
+		<execute macro="Alert#viewSuccessMessage" />
+
+		<execute macro="User#logoutAndLoginPG">
+			<var name="userLoginEmailAddress" value="userea@liferay.com" />
+			<var name="userLoginFullName" value="userfn userln" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="UsersAndOrganizationsNavigator#gotoOrganizations" />
+
+		<execute macro="Organization#addSiteCP">
+			<var name="orgName" value="Board of Governors" />
+			<var name="orgType" value="Organization" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Configuration" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Workflow Definition" />
+		</execute>
+
+		<execute macro="Workflow#uploadDefinition">
+			<var name="workflowDefinitionFile" value="advanced-governors-review.xml" />
+			<var name="workflowDefinitionTitle" value="Quarterly Reports Review Process" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Board of Governors" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Documents and Media" />
+		</execute>
+
+		<execute function="Click" locator1="Icon#DISPLAY_STYLE_ICON" />
+
+		<execute macro="DMFolder#addCP">
+			<var name="dmFolderDescription" value="Quarterly Financial Reports Description" />
+			<var name="dmFolderName" value="Quarterly Financial Reports" />
+		</execute>
+
+		<execute macro="DMFolder#configureWorkflowCP">
+			<var name="dmFolderName" value="Quarterly Financial Reports" />
+			<var name="workflowDefinition" value="Quarterly Reports Review Process (Version 1)" />
+			<var name="workflowRestriction" value="Default Workflow" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="UsersAndOrganizationsNavigator#gotoOrganizations" />
+
+		<execute macro="Organization#addMemberCP">
+			<var name="orgName" value="Board of Governors" />
+			<var name="userFirstName" value="userfn" />
+			<var name="userLastName" value="userln" />
+			<var name="userScreenName" value="usersn" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="User#assignRegularRoleCP">
+			<var name="roleName" value="Board Member" />
+			<var name="userScreenName" value="usersn" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Board of Governors" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Documents and Media" />
+		</execute>
+
+		<execute macro="DMFolder#gotoCP">
+			<var name="dmFolderName" value="Quarterly Financial Reports" />
+		</execute>
+
+		<execute macro="DMDocument#addWithWorkflowCP">
+			<var name="dmDocumentFile" value="space-financial-report.pdf" />
+			<var name="dmDocumentTitle" value="space-financial-report.pdf" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="Page#gotoMyAccount">
+			<var name="portletName" value="My Workflow Tasks" />
+		</execute>
+
+		<execute macro="Workflow#assignToMeTaskByActions">
+			<var name="workflowAssetTitle" value="space-financial-report.pdf" />
+			<var name="workflowAssetType" value="Document" />
+			<var name="workflowTask" value="Board Member Review 1" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="Page#gotoMyAccount">
+			<var name="portletName" value="My Workflow Tasks" />
+		</execute>
+
+		<execute macro="Workflow#approveTaskByActions">
+			<var name="boardWorkflowTask" value="1" />
+			<var name="workflowAssetTitle" value="space-financial-report.pdf" />
+			<var name="workflowAssetType" value="Document" />
+			<var name="workflowTask" value="Board Member Review 1" />
+		</execute>
+	</command>
+
+	<command name="TrainingDemo2" priority="5">
+		<property name="database.types" value="hypersonic" />
+		<property name="liferay.training.dependency.jars" value="src/01-liferay-fundamentals/02-integrating-identity-management/com.liferay.docs.samplecontent-1.0.0.jar" />
+		<property name="test.name.skip.portal.instance" value="TrainingHSQL#TrainingDemo2" />
+		<property name="testray.component.names" value="Training" />
+
+		<execute macro="SetupWizard#configurePG">
+			<var name="addSampleData" value="false" />
+			<var name="administratorEmail" value="space.admin@spaceprogram.liferay.com" />
+			<var name="administratorFirstName" value="Space" />
+			<var name="administratorLastName" value="Admin" />
+			<var name="databaseName" value="lportal1" />
+			<var method="TestPropsUtil#get('database.hypersonic.password')" name="databasePassword" />
+			<var name="databaseType" value="Hypersonic" />
+			<var method="TestPropsUtil#get('database.hypersonic.username')" name="databaseUserName" />
+			<var method="TestPropsUtil#get('database.hypersonic.driver')" name="jdbcDriverClassName" />
+			<var method="TestPropsUtil#get('database.hypersonic.url')" name="jdbcURL" />
+			<var name="portalName" value="S.P.A.C.E" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="Portlet#addPG">
+			<var name="pageName" value="Mock LDAP Page" />
+			<var name="portletName" value="Mock LDAP" />
+		</execute>
+
+		<execute macro="MockLDAP#selectJsonFile">
+			<var name="fileName" value="space-groups.json" />
+			<var name="tabName" value="User Groups" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="User Groups" />
+		</execute>
+
+		<execute macro="Pagination#changePagination">
+			<var name="itemsPerPage" value="20" />
+		</execute>
+
+		<execute macro="Pagination#viewResults">
+			<var name="results" value="Showing 1 to 11 of 11 entries." />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="MockLDAP#selectJsonFile">
+			<var name="fileName" value="space-users.json" />
+			<var name="tabName" value="Users" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Configuration" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Server Administration" />
+		</execute>
+
+		<execute macro="ServerAdministration#executeServerResourcesActions">
+			<var name="actionsDescription" value="Reindex all search indexes." />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="Pagination#changePagination">
+			<var name="itemsPerPage" value="20" />
+		</execute>
+
+		<execute macro="Pagination#viewResults">
+			<var name="results" value="Showing 1 to 20 of 115 entries." />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="UsersAndOrganizationsNavigator#gotoOrganizations" />
+
+		<execute macro="LAR#importPortlet">
+			<var name="larFileName" value="organizations-7.0.lar" />
+			<var name="uploadFrom" value="dependencies" />
+		</execute>
+
+		<for list="College of Agricultural Science,Board of Governors,College of Engineering,Human Resources" param="suborgName">
+			<execute macro="Navigator#openURL" />
+
+			<execute macro="ProductMenu#gotoPortlet">
+				<var name="category" value="Users" />
+				<var name="panel" value="Control Panel" />
+				<var name="portlet" value="Users and Organizations" />
+			</execute>
+
+			<execute macro="UsersAndOrganizationsNavigator#gotoOrganizations" />
+
+			<execute macro="Organization#addSiteCPWithPrivatePage">
+				<var name="checkEnablePropagationCheckbox" value="false" />
+				<var name="organizationSite" value="Intranet Site" />
+				<var name="orgName" value="${suborgName}" />
+				<var name="orgType" value="Organization" />
+			</execute>
+		</for>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Sites" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Site Templates" />
+		</execute>
+
+		<execute macro="LAR#importPortlet">
+			<var name="larFileName" value="class-site-template-7.0.lar" />
+			<var name="portletName" value="Site Templates" />
+			<var name="uploadFrom" value="dependencies" />
+		</execute>
+
+		<execute macro="SiteTemplates#viewCP">
+			<var name="siteTemplateName" value="Digital Class Room" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Sites" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Sites" />
+		</execute>
+
+		<execute macro="Site#addBlankCP">
+			<var name="parentSiteName" value="College of Agricultural Science" />
+			<var name="siteName" value="Moon Rocks 101" />
+			<var name="siteType" value="Blank" />
+			<var name="uncheckPropagation" value="false" />
+		</execute>
+
+		<execute macro="Site#selectPageType">
+			<var name="selectPrivatePages" value="true" />
+			<var name="siteTemplate" value="Digital Class Room" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Sites" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Sites" />
+		</execute>
+
+		<execute macro="Site#addBlankCP">
+			<var name="parentSiteName" value="College of Engineering" />
+			<var name="siteName" value="Spacecraft Fuel Alternatives 327" />
+			<var name="siteType" value="Blank" />
+		</execute>
+
+		<execute macro="Site#selectPageType">
+			<var name="selectPrivatePages" value="true" />
+			<var name="siteTemplate" value="Digital Class Room" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Spacecraft Fuel Alternatives 327" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Wiki" />
+		</execute>
+
+		<execute macro="WikiNavigator#gotoNode">
+			<var name="wikiNodeName" value="Main" />
+		</execute>
+
+		<execute macro="WikiNavigator#gotoCP">
+			<var name="wikiPageTitle" value="FrontPage" />
+		</execute>
+
+		<execute function="AssertClick" locator1="Wiki#FRONTPAGE_DEFAULT_MESSAGE" value1="This page is empty. Edit it to add some text." />
+
+		<execute macro="AlloyEditor#addSourceContent">
+			<var name="content"><![CDATA[==Research Projects for Spacecraft Fuel Alternatives 327==
+
+You can brainstorm, edit, and collaborate on your research projects for this class here. Put your links to your project notes below so they can be found easily.
+
+This wiki isn’t meant to be the place for your final project. Just use it as a jumping-off point to talk to your peers and generate ideas. That being said, don’t put anything on here you don’t want me to see.
+
+[[Sweet Potatoes]]
+
+[[Cranberries]]
+
+[[Landfill Waste]]
+]]></var>
+		</execute>
+
+		<execute macro="PortletEntry#publish" />
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="Page#add">
+			<var name="columnName" value="1 Column" />
+			<var name="pageName" value="Research Projects" />
+			<var name="siteName" value="Spacecraft Fuel Alternatives 327" />
+			<var name="sitePagePrivacy" value="Private" />
+			<var name="sitePageType" value="Empty Page" />
+		</execute>
+
+		<execute macro="Navigator#openPrivateSitePageURL">
+			<var name="pageName" value="Research Projects" />
+			<var name="siteName" value="Spacecraft Fuel Alternatives 327" />
+		</execute>
+
+		<execute macro="Portlet#addPG">
+			<var name="pageName" value="Research Projects" />
+			<var name="portletName" value="Wiki" />
+		</execute>
+
+		<execute macro="Navigator#openPrivateSitePageURL">
+			<var name="pageName" value="Research Projects" />
+			<var name="siteName" value="Spacecraft Fuel Alternatives 327" />
+		</execute>
+
+		<execute function="Click" locator1="xpath=(//div[@class='wiki-body']/p/a[contains(.,'Sweet Potatoes')])" />
+
+		<execute macro="AlloyEditor#addSourceContent">
+			<var name="content"><![CDATA[==Sweet Potatoes==
+
+Student Names:
+Clark Waterford
+Giada Barelli
+
+Ideas:
+*Sweet potatoes can produce up to four times more ethanol than corn
+*Current sustainability practices make sweet potatoes an ideal choice (no need for lots of water, hardy plants mean they can grow in a number of climates)
+*Large sweet potato varieties make for efficient growing
+*NEED MORE??!
+
+Demonstration Ideas:
+*Use specialized fast-growing techniques as an example
+*Conduct experiments for small-size rockets
+*]]></var>
+		</execute>
+
+		<execute macro="PortletEntry#publish" />
+
+		<execute macro="Navigator#openPrivateSitePageURL">
+			<var name="pageName" value="Research Projects" />
+			<var name="siteName" value="Spacecraft Fuel Alternatives 327" />
+		</execute>
+
+		<execute function="Click" locator1="xpath=(//div[@class='wiki-body']/p/a[contains(.,'Cranberries')])" />
+
+		<execute macro="AlloyEditor#addSourceContent">
+			<var name="content"><![CDATA[==Cranberries==
+
+Student Names:
+Rupert Kelly
+Lila Martinez
+
+What advantage do cranberries have?
+*Sugar and acidity
+*Easy harvest in large quantities
+*Exhaust safe
+*Will add later
+
+How can we prove this?
+*Ask ocean guys to donate cranberries
+	**Find out name
+	**Oceanspray, Rupert!
+*Borrow rockets from Mech Eng students
+	**Would Sara help?
+
+==================================================================
+
+]]></var>
+		</execute>
+
+		<execute macro="PortletEntry#publish" />
+
+		<execute macro="Navigator#openPrivateSitePageURL">
+			<var name="pageName" value="Research Projects" />
+			<var name="siteName" value="Spacecraft Fuel Alternatives 327" />
+		</execute>
+
+		<execute function="Click" locator1="xpath=(//div[@class='wiki-body']/p/a[contains(.,'Landfill Waste')])" />
+
+		<execute macro="AlloyEditor#addSourceContent">
+			<var name="content"><![CDATA[
+==Landfill Waste==
+
+Student Names:
+Tabitha Doolittle
+Jakob Miller
+Nolan Blackstone
+
+Brainstorming:
+*Problem of landfill waste, what to do with it?
+*Solution to reuse it as fuel and reduce number of landfills
+*Takes care of more than 3/4ths of waste (is this true? check facts with Nolan's uncle)
+*Obviously sustainable
+
+We need to:
+*Solve the problem of exhaust; how to make it not pollution!!!
+
+How to Present:
+*Can we rent the quad? Is that a thing?
+*Show how waste can be converted efficiently into energy with a conversion scale and repeatable tests and data
+]]></var>
+		</execute>
+
+		<execute macro="PortletEntry#publish" />
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Moon Rocks 101" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Documents and Media" />
+		</execute>
+
+		<execute function="Click" locator1="Icon#DISPLAY_STYLE_ICON" />
+
+		<execute macro="DMFolder#addCP">
+			<var name="dmFolderName" value="Unit 1 - Moon Rock Chemistry" />
+		</execute>
+
+		<execute macro="DMFolder#gotoCP">
+			<var name="dmFolderName" value="Unit 1 - Moon Rock Chemistry" />
+		</execute>
+
+		<execute macro="DMFolder#addSubfolderCP">
+			<var name="dmSubFolderName" value="The Properties of Moon Rocks" />
+		</execute>
+
+		<execute macro="DMFolder#gotoCP">
+			<var name="dmFolderName" value="The Properties of Moon Rocks" />
+		</execute>
+
+		<execute macro="DMFolder#addSubfolderCP">
+			<var name="dmSubFolderName" value="Audio Lectures" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Moon Rocks 101" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Documents and Media" />
+		</execute>
+
+		<execute macro="LAR#importPortlet">
+			<var name="larFileName" value="Moon-Rocks-101-syllabi-and-assignments.lar" />
+			<var name="uploadFrom" value="dependencies" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Moon Rocks 101" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Documents and Media" />
+		</execute>
+
+		<execute macro="DMFolder#removePermissions">
+			<var name="dmFolder" value="Assignment Submission" />
+			<var name="permissionNameList" value="ADD_SHORTCUT,ADD_SUBFOLDER,SUBSCRIBE" />
+			<var name="roleName" value="Site Member" />
+		</execute>
+
+		<execute macro="IFrame#closeFrame" />
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Moon Rocks 101" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Documents and Media" />
+		</execute>
+
+		<execute function="Click" locator1="Icon#DISPLAY_STYLE_DESCRIPTIVE" />
+
+		<execute macro="DMFolder#gotoCP">
+			<var name="dmFolderName" value="Unit 1 - Moon Rock Chemistry" />
+		</execute>
+
+		<execute macro="DMFolder#gotoCP">
+			<var name="dmFolderName" value="The Properties of Moon Rocks" />
+		</execute>
+
+		<execute macro="DMFolder#gotoCP">
+			<var name="dmFolderName" value="Audio Lectures" />
+		</execute>
+
+		<execute macro="DMDocument#addCP">
+			<var name="dmDocumentDescription" value="Dr. Knight - MR101 -  Lecture 1.ogg Description" />
+			<var name="dmDocumentFile" value="Dr. Knight - MR101 -  Lecture 1.ogg" />
+			<var name="dmDocumentTitle" value="Dr. Knight - MR101 -  Lecture 1.ogg" />
+			<var name="tagNameList" value="moon rocks" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Moon Rocks 101" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Documents and Media" />
+		</execute>
+
+		<execute macro="DMFolder#gotoCP">
+			<var name="dmFolderName" value="Assignment Submission" />
+		</execute>
+
+		<execute macro="DMFolder#gotoCP">
+			<var name="dmFolderName" value="Unit 1 Moon Geography" />
+		</execute>
+
+		<execute macro="DMFolder#gotoCP">
+			<var name="dmFolderName" value="Chapter 1 Worksheet" />
+		</execute>
+
+		<execute function="Click" locator1="DocumentsAndMedia#DESCRIPTIVE_LIST_DOCUMENT_VERTICAL_ELLIPSIS">
+			<var name="key_dmDocumentTitle" value="owain-unit-1-assignment.pdf" />
+		</execute>
+
+		<execute function="AssertClick" locator1="MenuItem#ANY_MENU_ITEM" value1="Edit">
+			<var name="key_menuItem" value="Edit" />
+		</execute>
+
+		<execute macro="Panel#expandPanel">
+			<var name="panelHeading" value="Categorization" />
+		</execute>
+
+		<execute function="Click#clickAt" locator1="AssetCategorization#TAGS_ADD_BUTTON" />
+
+		<execute function="Type" locator1="AssetCategorization#TAGS_FIELD" value1="moon rocks" />
+
+		<execute function="Click#clickAt" locator1="AssetCategorization#TAGS_ADD_BUTTON" />
+
+		<execute macro="PortletEntry#publish" />
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Moon Rocks 101" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Documents and Media" />
+		</execute>
+
+		<execute function="Click" locator1="Icon#DISPLAY_STYLE_ICON" />
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Moon Rocks 101" />
+		</execute>
+
+		<execute macro="Search#searchPG">
+			<var name="searchTerm" value="moon rocks" />
+		</execute>
+
+		<execute macro="Search#addTagFacet">
+			<var name="tagName" value="moon rocks" />
+		</execute>
+
+		<execute macro="Search#viewSearchResultPG">
+			<var name="searchAssetTitle" value="owain-unit-1-assignment.pdf" />
+			<var name="searchAssetType" value="Document" />
+		</execute>
+
+		<execute macro="Search#viewSearchResultPG">
+			<var name="searchAssetTitle" value="Dr. Knight - MR101 - Lecture 1.ogg" />
+			<var name="searchAssetType" value="Document" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Moon Rocks 101" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Categories" />
+		</execute>
+
+		<execute macro="Vocabulary#addCP">
+			<var name="vocabularyName" value="Unit 1 - Moon Rock Chemistry" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Moon Rocks 101" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Categories" />
+		</execute>
+
+		<execute macro="Category#addCP">
+			<var name="categoryName" value="1.1 - The Properties of Moon Rocks" />
+			<var name="vocabularyName" value="Unit 1 - Moon Rock Chemistry" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Moon Rocks 101" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Categories" />
+		</execute>
+
+		<execute macro="Subcategory#addCP">
+			<var name="categoryName" value="1.1 - The Properties of Moon Rocks" />
+			<var name="subcategoryName" value="1.1 - Audio Lectures" />
+			<var name="vocabularyName" value="Unit 1 - Moon Rock Chemistry" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Moon Rocks 101" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Categories" />
+		</execute>
+
+		<execute macro="Subcategory#addCP">
+			<var name="categoryName" value="1.1 - The Properties of Moon Rocks" />
+			<var name="subcategoryName" value="1.1 - Lecture Notes" />
+			<var name="vocabularyName" value="Unit 1 - Moon Rock Chemistry" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Moon Rocks 101" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Categories" />
+		</execute>
+
+		<execute macro="LAR#importPortlet">
+			<var name="larFileName" value="Moon-Rocks-Unit-Category-Hierarchy.lar" />
+			<var name="uploadFrom" value="dependencies" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Moon Rocks 101" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Documents and Media" />
+		</execute>
+
+		<execute function="Click" locator1="Icon#DISPLAY_STYLE_DESCRIPTIVE" />
+
+		<execute macro="DMFolder#gotoCP">
+			<var name="dmFolderName" value="Unit 1 - Moon Rock Chemistry" />
+		</execute>
+
+		<execute macro="DMFolder#gotoCP">
+			<var name="dmFolderName" value="The Properties of Moon Rocks" />
+		</execute>
+
+		<execute macro="DMFolder#gotoCP">
+			<var name="dmFolderName" value="Audio Lectures" />
+		</execute>
+
+		<execute macro="DMNavigator#gotoEditDocument">
+			<var name="dmDocumentTitle" value="Dr. Knight - MR101 -  Lecture 1.ogg" />
+		</execute>
+
+		<execute macro="DMDocument#addCategories">
+			<var name="categoryNameList" value="1.1 - Audio Lectures" />
+			<var name="vocabularyName" value="Unit 1 - Moon Rock Chemistry" />
+		</execute>
+
+		<execute macro="PortletEntry#publish" />
+
+		<execute macro="Navigator#openPrivateSitePageURL">
+			<var name="pageName" value="Materials" />
+			<var name="siteName" value="Moon Rocks 101" />
+		</execute>
+
+		<execute macro="Portlet#addPG">
+			<var name="portletName" value="Categories Navigation" />
+		</execute>
+
+		<execute macro="Navigator#openPrivateSitePageURL">
+			<var name="pageName" value="Materials" />
+			<var name="siteName" value="Moon Rocks 101" />
+		</execute>
+
+		<execute macro="CategoriesNavigationPortlet#selectCategoryPG">
+			<var name="categoryName" value="1.1 - The Properties of Moon Rocks" />
+		</execute>
+
+		<execute macro="CategoriesNavigationPortlet#selectCategoryPG">
+			<var name="categoryName" value="1.1 - Audio Lectures" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Spacecraft Fuel Alternatives 327" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Wiki" />
+		</execute>
+
+		<execute macro="WikiNode#addCP">
+			<var name="wikiNodeName" value="Electricity" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Spacecraft Fuel Alternatives 327" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Wiki" />
+		</execute>
+
+		<execute macro="WikiNavigator#gotoNode">
+			<var name="wikiNodeName" value="Electricity" />
+		</execute>
+
+		<execute macro="WikiNavigator#gotoCP">
+			<var name="wikiPageTitle" value="FrontPage" />
+		</execute>
+
+		<execute macro="WikiPage#addFrontPageCP">
+			<var name="sourceCode" value="true" />
+			<var name="wikiFrontPageContent"><![CDATA[<h2>The Decline and Fall of Electricity</h2>
+
+Student Names:
+<ul>
+	<li>Clark Waterford</li>
+
+	<li>Tabitha Doolittle</li>
+</ul>
+
+Brainstorming:
+<ul>
+	<li>Talk about Bell's Bane (cite Dr. Novola's paper as reference)</li>
+
+	<li>Yesterday’s technology</li>
+
+	<li>Fuel alternatives need to keep pace with the latest in spacecraft technology</li>
+</ul>
+
+]]></var>
+			<var name="wikiNodeName" value="Electricity" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Spacecraft Fuel Alternatives 327" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Wiki" />
+		</execute>
+
+		<execute macro="LAR#importPortlet">
+			<var name="larFileName" value="research-projects-node.lar" />
+			<var name="mirrorWithOverwriting" value="true" />
+			<var name="uploadFrom" value="dependencies" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Spacecraft Fuel Alternatives 327" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Wiki" />
+		</execute>
+
+		<execute macro="WikiNavigator#gotoNode">
+			<var name="wikiNodeName" value="Organic Research Projects" />
+		</execute>
+
+		<execute macro="WikiNavigator#gotoCP">
+			<var name="wikiPageTitle" value="FrontPage" />
+		</execute>
+
+		<execute function="AssertClick" locator1="WikiEntry#BODY_LINK" value1="Sweet Potatoes" />
+
+		<execute function="AssertTextEquals" locator1="WikiEntry#HEADER_TITLE" value1="Sweet Potatoes" />
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Human Resources" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Documents and Media" />
+		</execute>
+
+		<execute macro="LexiconEntry#gotoHeaderMenuItem">
+			<var name="menuItem" value="Document Types" />
+		</execute>
+
+		<execute macro="DMDocumentType#add">
+			<var name="dmDocumentTypeDescription" value="S.P.A.C.E. Employee Information Sheet Description" />
+			<var name="dmDocumentTypeFieldNames" value="Boolean" />
+			<var name="dmDocumentTypeName" value="S.P.A.C.E. Employee Information Sheet" />
+		</execute>
+
+		<execute macro="DMDocumentType#edit">
+			<var name="dmDocumentTypeFieldLabel" value="Hire Date" />
+			<var name="dmDocumentTypeFieldNames" value="Date" />
+			<var name="dmDocumentTypeName" value="S.P.A.C.E. Employee Information Sheet" />
+		</execute>
+
+		<execute macro="DMDocumentType#edit">
+			<var name="dmDocumentTypeFieldLabel" value="Supervisor Notes" />
+			<var name="dmDocumentTypeFieldNames" value="Text Box" />
+			<var name="dmDocumentTypeName" value="S.P.A.C.E. Employee Information Sheet" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Human Resources" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Documents and Media" />
+		</execute>
+
+		<execute function="Click" locator1="Icon#DISPLAY_STYLE_ICON" />
+
+		<execute macro="DMFolder#addCP">
+			<var name="dmFolderDescription" value="S.P.A.C.E. Adjunct Faculty Description" />
+			<var name="dmFolderName" value="S.P.A.C.E. Adjunct Faculty" />
+		</execute>
+
+		<execute function="Click" locator1="Icon#DISPLAY_STYLE_DESCRIPTIVE" />
+
+		<execute macro="DMNavigator#gotoFolder">
+			<var name="dmFolderName" value="S.P.A.C.E. Adjunct Faculty" />
+		</execute>
+
+		<execute macro="DMDocument#addDocumentTypeCP">
+			<var name="date" value="10/07/2060" />
+			<var name="dateFieldName" value="HireDate" />
+			<var name="dmDocumentDescription" value="Edward Knight.docx Description" />
+			<var name="dmDocumentFile" value="Edward Knight.docx" />
+			<var name="dmDocumentTitle" value="Edward Knight.docx" />
+			<var name="dmDocumentTypeName" value="S.P.A.C.E. Employee Information Sheet" />
+			<var name="textBox" value="Liferay Supervisor" />
+			<var name="textBoxFieldName" value="SupervisorNotes" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Human Resources" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Publishing" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Staging" />
+		</execute>
+
+		<execute macro="Staging#activateStagingCP">
+			<var name="contentNameList" value="Web Content,Documents and Media,Mobile Device Families" />
+			<var name="siteName" value="Human Resources" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Human Resources" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoStagingSite" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Publishing" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Staging" />
+		</execute>
+
+		<execute macro="Staging#editStagingConfiguration">
+			<var name="privatePageVersioningEnabled" value="true" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Human Resources" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoStagingSite" />
+
+		<execute macro="Staging#addPageVariationPG">
+			<var name="pageVariationName" value="Home Page Seasonal Variation" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Human Resources" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoStagingSite" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Web Content" />
+		</execute>
+
+		<execute macro="LAR#importPortlet">
+			<var name="larFileName" value="HR_WebContent.lar" />
+			<var name="uploadFrom" value="dependencies" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Human Resources" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoStagingSite" />
+
+		<execute macro="Portlet#deletePG">
+			<var name="portletName" value="Language Selector" />
+		</execute>
+
+		<execute macro="Portlet#dragAndDropPortletToColumnPG">
+			<var name="columnNumberFrom" value="1" />
+			<var name="columnNumberTo" value="2" />
+			<var name="portletName" value="Activities" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Human Resources" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoStagingSite" />
+
+		<execute macro="Portlet#gotoPortletOptions">
+			<var name="portletName" value="Asset Publisher" />
+			<var name="portletOption" value="Look and Feel Configuration" />
+		</execute>
+
+		<execute macro="Portlet#configureCustomTitleViaLookandfeelPG">
+			<var name="customPortletTitle" value="What’s New" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Human Resources" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoStagingSite" />
+
+		<execute macro="Content#addPG">
+			<var name="assetTitle" value="The SPACE Family" />
+		</execute>
+
+		<execute macro="Staging#viewStagingWorkflowStatusPG">
+			<var name="stagingWorkflowStatus" value="Ready for Publication" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoStagingSite" />
+
+		<execute macro="Staging#gotoPublishToLive" />
+
+		<execute macro="Staging#publishToLive">
+			<var name="publicationName" value="Seasonal Update" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Human Resources" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoStagingSite" />
+
+		<execute macro="Content#addPG">
+			<var name="assetTitle" value="Enrollment Features" />
+		</execute>
+
+		<execute macro="Staging#viewStagingWorkflowStatusPG">
+			<var name="stagingWorkflowStatus" value="Ready for Publication" />
+		</execute>
+
+		<execute macro="Staging#schedulePublishToLivePG">
+			<var name="endByDate" value="true" />
+			<var name="frequency" value="Yearly" />
+			<var name="scheduleTitleName" value="HR Site Launch" />
+		</execute>
+
+		<execute function="Pause" locator1="120000" />
+	</command>
+
+	<command name="TrainingDemo3" priority="5">
+		<property name="database.types" value="hypersonic" />
+		<property name="liferay.training.dependency.jars" value="src/01-liferay-fundamentals/02-integrating-identity-management/com.liferay.docs.samplecontent-1.0.0.jar" />
+		<property name="test.name.skip.portal.instance" value="TrainingHSQL#TrainingDemo3" />
+		<property name="testray.component.names" value="Training" />
+
+		<execute macro="SetupWizard#configurePG">
+			<var name="addSampleData" value="false" />
+			<var name="administratorEmail" value="space.admin@spaceprogram.liferay.com" />
+			<var name="administratorFirstName" value="Space" />
+			<var name="administratorLastName" value="Admin" />
+			<var name="databaseName" value="lportal1" />
+			<var method="TestPropsUtil#get('database.hypersonic.password')" name="databasePassword" />
+			<var name="databaseType" value="Hypersonic" />
+			<var method="TestPropsUtil#get('database.hypersonic.username')" name="databaseUserName" />
+			<var method="TestPropsUtil#get('database.hypersonic.driver')" name="jdbcDriverClassName" />
+			<var method="TestPropsUtil#get('database.hypersonic.url')" name="jdbcURL" />
+			<var name="portalName" value="S.P.A.C.E" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="Portlet#addPG">
+			<var name="pageName" value="Mock LDAP Page" />
+			<var name="portletName" value="Mock LDAP" />
+		</execute>
+
+		<execute macro="MockLDAP#selectJsonFile">
+			<var name="fileName" value="space-groups.json" />
+			<var name="tabName" value="User Groups" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="User Groups" />
+		</execute>
+
+		<execute macro="Pagination#changePagination">
+			<var name="itemsPerPage" value="20" />
+		</execute>
+
+		<execute macro="Pagination#viewResults">
+			<var name="results" value="Showing 1 to 11 of 11 entries." />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="MockLDAP#selectJsonFile">
+			<var name="fileName" value="space-users.json" />
+			<var name="tabName" value="Users" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Configuration" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Server Administration" />
+		</execute>
+
+		<execute macro="ServerAdministration#executeServerResourcesActions">
+			<var name="actionsDescription" value="Reindex all search indexes." />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="Pagination#changePagination">
+			<var name="itemsPerPage" value="20" />
+		</execute>
+
+		<execute macro="Pagination#viewResults">
+			<var name="results" value="Showing 1 to 20 of 115 entries." />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="UsersAndOrganizationsNavigator#gotoOrganizations" />
+
+		<execute macro="LAR#importPortlet">
+			<var name="larFileName" value="organizations-7.0.lar" />
+			<var name="uploadFrom" value="dependencies" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Web Content" />
+		</execute>
+
+		<execute macro="WebContentNavigator#gotoAddCP" />
+
+		<execute macro="WebContent#addCP">
+			<var name="webContentTitle" value="Basic S.P.A.C.E. Banner" />
+		</execute>
+
+		<execute macro="WebContent#addAbstractSummary">
+			<var name="abstractSummary" value="A basic front page banner" />
+		</execute>
+
+		<execute macro="AlloyEditor#addSourceContent">
+			<var name="content"><![CDATA[
+<h2 class="text-center">Space Program Academy of Continuing Education</h2>
+
+<p class="text-center">Dare to Dream out of this world</p>
+]]></var>
+		</execute>
+
+		<execute function="Click" locator1="Button#EDITOR_FORMAT" />
+
+		<execute macro="WebContent#addWithImage">
+			<var name="uploadFileName" value="Spaceport.jpg" />
+			<var name="uploadFrom" value="dependencies" />
+		</execute>
+
+		<execute macro="Button#clickPublish" />
+
+		<execute function="Pause" locator1="10000" />
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="Portlet#deletePG">
+			<var name="portletName" value="Mock LDAP" />
+		</execute>
+
+		<execute macro="Portlet#deletePG">
+			<var name="portletName" value="Hello World" />
+		</execute>
+
+		<execute macro="Content#addPG">
+			<var name="assetTitle" value="Basic S.P.A.C.E. Banner" />
+		</execute>
+
+		<execute macro="WebContent#viewPGViaWCD">
+			<var name="webContentContent" value="Space Program Academy of Continuing Education Dare to Dream out of this world" />
+		</execute>
+
+		<execute macro="WebContentNavigator#gotoEditPGViaWCD" />
+
+		<execute macro="WebContent#addTranslation">
+			<var name="localizedAbstractSummary" value="A Japanese translation of the basic front page banner" />
+			<var name="localizedLanguage" value="Japanese (Japan)" />
+			<var name="localizedTitle" value="Basic S.P.A.C.E. Banner (Japanese Translation)" />
+			<var name="webContentTitle" value="Basic S.P.A.C.E. Banner" />
+		</execute>
+
+		<execute macro="AlloyEditor#addSourceContent">
+			<var name="content"><![CDATA[
+<h2 class="text-center">Space Program 大学生涯教育</h2>
+
+<p class="text-center">地球から、宇宙の果てへ</p>
+]]></var>
+		</execute>
+
+		<execute macro="Button#clickPublish" />
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="Portlet#addPG">
+			<var name="portletName" value="Language Selector" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="LanguagePortlet#selectLanguagePG">
+			<var name="language" value="Japanese (Japan)" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="WebContent#viewPGViaWCD">
+			<var name="webContentContent" value="Space Program Academy of Continuing Education Dare to Dream out of this world Space Program 大学生涯教育 地球から、宇宙の果てへ" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="LanguagePortlet#selectLanguagePG">
+			<var name="language" value="English (United States)" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="WebContent#viewPGViaWCD">
+			<var name="webContentContent" value="Space Program Academy of Continuing Education Dare to Dream out of this world" />
+		</execute>
+
+		<execute function="AssertTextNotPresent" locator1="WCD#WEB_CONTENT_CONTENT" value1="Space Program 大学生涯教育 地球から、宇宙の果てへ" />
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="S.P.A.C.E" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Documents and Media" />
+		</execute>
+
+		<execute macro="DMFolder#addCP">
+			<var name="dmFolderName" value="Web Content Images" />
+		</execute>
+
+		<execute function="Click" locator1="Icon#DISPLAY_STYLE_DESCRIPTIVE" />
+
+		<execute macro="DMNavigator#gotoFolder">
+			<var name="dmFolderName" value="Web Content Images" />
+		</execute>
+
+		<execute macro="DMDocument#addCP">
+			<var name="dmDocumentFile" value="dream.jpg" />
+			<var name="dmDocumentTitle" value="dream.jpg" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Documents and Media" />
+		</execute>
+
+		<execute macro="DMNavigator#gotoFolder">
+			<var name="dmFolderName" value="Web Content Images" />
+		</execute>
+
+		<execute macro="DMDocument#addMultipleCP">
+			<var name="dmDocumentFileList" value="future.jpg,lift-off.jpg" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Documents and Media" />
+		</execute>
+
+		<execute macro="DMNavigator#gotoFolder">
+			<var name="dmFolderName" value="Web Content Images" />
+		</execute>
+
+		<for list="dream.jpg,future.jpg,lift-off.jpg" param="dmDocumentTitle">
+			<execute macro="DMNavigator#gotoDocumentCP">
+				<var name="dmDocumentTitle" value="${dmDocumentTitle}" />
+			</execute>
+
+			<execute macro="DMDocument#viewCP">
+				<var name="dmDocumentTitle" value="${dmDocumentTitle}" />
+			</execute>
+
+			<execute function="Click" locator1="Icon#ANGLE_LEFT_BACK" />
+		</for>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Documents and Media" />
+		</execute>
+
+		<execute function="Click" locator1="Icon#DISPLAY_STYLE_DESCRIPTIVE" />
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="S.P.A.C.E" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Blogs" />
+		</execute>
+
+		<execute macro="LexiconEntry#gotoAdd" />
+
+		<execute macro="BlogsEntry#addEntryContent">
+			<var name="entryContent"><![CDATA[A World-Renowned Professor<br />It's no secret that Agricultural Science Department professor Dr. Wolfgang von Richter has built his entire career on solving the problem of sustainable living on other planets. For Dr. von Richter, the humble lima bean, which comes from the aptly-named phaseolus lunatus plant of the legume family, is the solution. For years, Dr. von Richter has cultivated variety after variety of lima bean. He's turned lima beans cobalt blue by adding the hardiness of a violet gene; he's grown lima beans the size of fists with his nutrient-rich, hyper-growth soil. But how realistic is his dream of getting lima beans to grow in the harsh, unpredictable, and, frankly, otherworldly conditions of different planets?]]></var>
+			<var name="entrySubtitle" value="A conversation with Dr. Von Richter" />
+			<var name="entryTitle" value="Is the Lima Bean Really the Answer to Our Life on Other Planets?" />
+		</execute>
+
+		<execute macro="BlogsEntry#selectFormattingStyle">
+			<var name="styleFormat" value="Heading 2" />
+		</execute>
+
+		<execute macro="Button#clickPublish" />
+
+		<execute function="Pause" locator1="10000" />
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="S.P.A.C.E" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Web Content" />
+		</execute>
+
+		<for list="News,Events,Front Page Content" param="folderName">
+			<execute macro="WebContentFolder#addCP">
+				<var name="folderDescription" value="${folderName} Folder Description" />
+				<var name="folderName" value="${folderName}" />
+			</execute>
+		</for>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="S.P.A.C.E" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Web Content" />
+		</execute>
+
+		<execute macro="WebContent#moveToFolderCP">
+			<var name="folderName" value="Front Page Content" />
+			<var name="webContentTitle" value="Basic S.P.A.C.E. Banner" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="Portlet#gotoPortletOptions">
+			<var name="portletName" value="Web Content Display" />
+			<var name="portletOption" value="Look and Feel Configuration" />
+		</execute>
+
+		<execute macro="Portlet#selectApplicationDecorator">
+			<var name="decorator" value="Borderless" />
+		</execute>
+
+		<execute function="Refresh" />
+
+		<execute function="AssertTextEquals" locator1="Portlet#SPECIFIC_TITLE" value1="Basic S.P.A.C.E. Banner">
+			<var name="key_portletTitleName" value="Basic S.P.A.C.E. Banner" />
+		</execute>
+
+		<execute macro="Portlet#gotoPortletOptions">
+			<var name="portletName" value="Web Content Display" />
+			<var name="portletOption" value="Look and Feel Configuration" />
+		</execute>
+
+		<execute macro="Portlet#selectApplicationDecorator">
+			<var name="decorator" value="Barebone" />
+		</execute>
+
+		<execute function="Refresh" />
+
+		<execute function="AssertElementNotPresent" locator1="Portlet#SPECIFIC_TITLE">
+			<var name="key_portletTitleName" value="Basic S.P.A.C.E. Banner" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="Portlet#addPG">
+			<var name="portletName" value="Asset Publisher" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="Portlet#addPG">
+			<var name="portletName" value="Asset Publisher" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="AssetPublisherPortlet#configureAssetTypePG">
+			<var name="assetSubtype" value="Any" />
+			<var name="portletName" value="Asset Publisher" />
+			<var name="selectedAsset" value="Web Content Article" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="AssetPublisherPortlet#configureAssetLinkBehaviorPG">
+			<var name="assetLinkBehavior" value="View in Context" />
+			<var name="disableConfiguration" value="Show Add Content Button" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="AssetPublisherPortlet#configurePaginationPG">
+			<var name="paginationNumber" value="5" />
+			<var name="paginationType" value="Regular" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="AssetPublisherPortlet#saveConfigurationTemplatePG">
+			<var name="configurationName" value="Basic Web Content Feed" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="Portlet#gotoSpecificPortletOptions">
+			<var name="order" value="2" />
+			<var name="portletName" value="Asset Publisher" />
+			<var name="portletOption" value="Configuration Templates" />
+		</execute>
+
+		<execute macro="IFrame#selectDialogFrame" />
+
+		<execute function="Click" locator1="Icon#ROW_VERTICAL_ELLIPSIS">
+			<var name="key_rowEntry" value="Basic Web Content Feed" />
+		</execute>
+
+		<execute function="AssertClick" locator1="MenuItem#ANY_MENU_ITEM" value1="Apply">
+			<var name="key_menuItem" value="Apply" />
+		</execute>
+
+		<execute macro="Alert#viewSuccessMessage" />
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="Portlet#gotoPortletOptions">
+			<var name="portletName" value="Asset Publisher" />
+			<var name="portletOption" value="Look and Feel Configuration" />
+		</execute>
+
+		<execute macro="Portlet#configureCustomTitleViaLookandfeelPG">
+			<var name="customPortletTitle" value="News" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="Portlet#gotoSpecificPortletOptions">
+			<var name="order" value="2" />
+			<var name="portletName" value="Asset Publisher" />
+			<var name="portletOption" value="Look and Feel Configuration" />
+		</execute>
+
+		<execute macro="Portlet#configureCustomTitleViaLookandfeelPG">
+			<var name="customPortletTitle" value="Events" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Web Content" />
+		</execute>
+
+		<execute macro="LAR#importPortlet">
+			<var name="larFileName" value="space-content-7.0.lar" />
+			<var name="uploadFrom" value="dependencies" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Web Content" />
+		</execute>
+
+		<execute macro="WebContentNavigator#gotoManageStructures" />
+
+		<execute function="Click" locator1="xpath=(//a[.='Events'])" />
+
+		<execute function="Type#clickAtType" locator1="TextInput#NAME" value1="Evold" />
+
+		<execute macro="WebContentStructures#saveCP">
+			<var name="structureName" value="Evold" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="AssetPublisherPortlet#configureAssetTypePG">
+			<var name="assetSubtype" value="News" />
+			<var name="portletName" value="Asset Publisher" />
+			<var name="selectedAsset" value="Web Content Article" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="AssetPublisherPortlet#configureAssetTypePG">
+			<var name="assetSubtype" value="Evold" />
+			<var name="order" value="2" />
+			<var name="portletName" value="Asset Publisher" />
+			<var name="selectedAsset" value="Web Content Article" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="Page#add">
+			<var name="inheritChanges" value="disable" />
+			<var name="pageName" value="News and Events" />
+			<var name="pageTemplateName" value="Content Display Page" />
+		</execute>
+
+		<execute macro="Navigator#gotoSitePage">
+			<var name="pageName" value="News and Events" />
+			<var name="siteName" value="S.P.A.C.E" />
+		</execute>
+
+		<execute macro="AssetPublisherPortlet#configureAssetTypePG">
+			<var name="selectContent" value="3 Column with Images,Footer Content,1 Column Banner,3 Column,Basic Web Content,News and Events Structure" />
+			<var name="selectedAsset" value="Web Content Article" />
+			<var name="selectMoreThanOneSubtype" value="true" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="SitePageNavigator#gotoEditPage">
+			<var name="page" value="News and Events" />
+		</execute>
+
+		<execute macro="Page#editPageLayoutColumn">
+			<var name="columnName" value="1-2 Columns (30/70)" />
+		</execute>
+
+		<execute macro="Navigator#gotoSitePage">
+			<var name="pageName" value="News and Events" />
+			<var name="siteName" value="S.P.A.C.E" />
+		</execute>
+
+		<execute macro="Portlet#gotoPortletOptions">
+			<var name="portletName" value="Asset Publisher" />
+			<var name="portletOption" value="Look and Feel Configuration" />
+		</execute>
+
+		<execute macro="Portlet#selectApplicationDecorator">
+			<var name="decorator" value="Barebone" />
+		</execute>
+
+		<execute macro="Portlet#dragAndDropPortletToColumnPG">
+			<var name="columnNumberFrom" value="1" />
+			<var name="columnNumberTo" value="2" />
+			<var name="portletName" value="Tags Navigation" />
+		</execute>
+
+		<execute macro="Portlet#dragAndDropPortletToColumnPG">
+			<var name="columnNumberFrom" value="1" />
+			<var name="columnNumberTo" value="2" />
+			<var name="portletName" value="Categories Navigation" />
+		</execute>
+
+		<execute macro="Portlet#addPG">
+			<var name="portletName" value="Web Content Display" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Web Content" />
+		</execute>
+
+		<execute macro="WebContentFolder#gotoCP">
+			<var name="folderName" value="News (2)" />
+			<var name="webContentTitle" value="News (2)" />
+		</execute>
+
+		<for list="When It All Began...,Student Spotlight,Stravinksy in Space?" param="webContentTitle">
+			<execute macro="WebContentNavigator#gotoEditCP">
+				<var name="webContentTitle" value="${webContentTitle}" />
+			</execute>
+
+			<execute macro="WebContent#editDisplayPageCP">
+				<var name="pageName" value="News and Events" />
+				<var name="webContentTitle" value="${webContentTitle}" />
+			</execute>
+		</for>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Web Content" />
+		</execute>
+
+		<execute macro="WebContentFolder#gotoCP">
+			<var name="folderName" value="Events (2)" />
+			<var name="webContentTitle" value="Events (2)" />
+		</execute>
+
+		<for list="Upcoming Press Conference,New Student Orientation,Fall Special Speaker Series" param="webContentTitle">
+			<execute macro="WebContentNavigator#gotoEditCP">
+				<var name="webContentTitle" value="${webContentTitle}" />
+			</execute>
+
+			<execute macro="WebContent#editDisplayPageCP">
+				<var name="pageName" value="News and Events" />
+				<var name="webContentTitle" value="${webContentTitle}" />
+			</execute>
+		</for>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Web Content" />
+		</execute>
+
+		<execute macro="WebContentNavigator#gotoManageStructures" />
+
+		<execute macro="WebContentStructures#addCP">
+			<var name="structureName" value="Content List" />
+		</execute>
+
+		<execute macro="DynamicDataMapping#addField">
+			<var name="field" value="Web Content" />
+			<var name="fieldFieldLabel" value="Web Content" />
+			<var name="fieldName" value="contents" />
+		</execute>
+
+		<execute macro="DynamicDataMapping#editFieldTip">
+			<var name="fieldFieldLabel" value="Web Content" />
+			<var name="fieldTip" value="Choose as many content pieces as you would like to feature." />
+		</execute>
+
+		<execute macro="DynamicDataMapping#editFieldRepeatable">
+			<var name="fieldFieldLabel" value="Web Content" />
+		</execute>
+
+		<execute macro="WebContentStructures#saveCP">
+			<var name="structureName" value="Content List" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Web Content" />
+		</execute>
+
+		<execute macro="WebContentTemplates#editTemplateFile">
+			<var name="templateFile" value="event-advanced-display.ftl" />
+			<var name="templateName" value="Event Template" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Web Content" />
+		</execute>
+
+		<execute macro="LAR#importPortlet">
+			<var name="larFileName" value="content-display-templates.lar" />
+			<var name="uploadFrom" value="dependencies" />
+		</execute>
+
+		<execute macro="WebContentNavigator#gotoManageTemplates" />
+
+		<for list="Carousel Display,Thumbnail Display,Content List Display" param="templateName">
+			<execute macro="WebContentNavigator#gotoViewTemplate">
+				<var name="templateName" value="${templateName}" />
+			</execute>
+
+			<execute macro="WebContentTemplates#addStructure">
+				<var name="structureName" value="Content List" />
+			</execute>
+
+			<execute macro="DDLDataDefinition#save" />
+		</for>
+
+		<for list="Carousel Display,Thumbnail Display,Content List Display" param="templateName">
+			<execute macro="ProductMenu#gotoPortlet">
+				<var name="category" value="Content" />
+				<var name="panel" value="Site Administration" />
+				<var name="portlet" value="Web Content" />
+			</execute>
+
+			<execute macro="WebContentTemplates#viewCP">
+				<var name="structureName" value="Content List" />
+				<var name="templateDescription" value="" />
+				<var name="templateLanguage" value="ftl" />
+				<var name="templateName" value="${templateName}" />
+			</execute>
+		</for>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="Navigator#gotoEditPageViaControlMenu">
+			<var name="pageName" value="Welcome" />
+		</execute>
+
+		<execute macro="Navigator#gotoSEOPanel" />
+
+		<execute function="Type#typeClickAt" locator1="TextInput#SEO_HTML_TITLE" value1="S.P.A.C.E.Home" />
+
+		<execute function="Type#typeClickAt" locator1="TextArea#SEO_META_TAGS_DESCRIPTION" value1="Welcome to S.P.A.C.E., a graduate-level school for those passionate about expanding their horizons through science, research, and space travel" />
+
+		<execute function="Type#typeClickAt" locator1="TextArea#SEO_META_TAGS_KEYWORDS" value1="space, education, space travel, graduateschool" />
+
+		<execute function="AssertClick#pauseAssertTextClickAt" locator1="Button#SAVE" value1="Save" />
+
+		<execute macro="Alert#waitForSuccessMessageHide" />
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="Navigator#gotoEditPageViaControlMenu">
+			<var name="pageName" value="Welcome" />
+		</execute>
+
+		<execute macro="Navigator#gotoSEOPanel" />
+
+		<execute macro="Page#viewPageMetadata">
+			<var name="HTMLTitle" value="S.P.A.C.E.Home" />
+			<var name="metaTagsDescription" value="Welcome to S.P.A.C.E., a graduate-level school for those passionate about expanding their horizons through science, research, and space travel" />
+			<var name="metaTagsKeywords" value="space, education, space travel, graduateschool" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Web Content" />
+		</execute>
+
+		<execute macro="WebContentNavigator#gotoManageStructures" />
+
+		<execute macro="WebContentStructures#addCP">
+			<var name="structureDescription" value="News Description" />
+			<var name="structureName" value="News" />
+		</execute>
+
+		<execute macro="DynamicDataMapping#addField">
+			<var name="field" value="Documents and Media" />
+			<var name="fieldFieldLabel" value="Cover Image" />
+			<var name="fieldName" value="NewsCoverImage" />
+		</execute>
+
+		<execute macro="DynamicDataMapping#addField">
+			<var name="field" value="Text Box" />
+			<var name="fieldFieldLabel" value="Content" />
+			<var name="fieldName" value="NewsContent" />
+		</execute>
+
+		<execute macro="WebContentStructures#saveCP">
+			<var name="structureName" value="News" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Web Content" />
+		</execute>
+
+		<execute macro="WebContentNavigator#gotoManageStructures" />
+
+		<execute macro="WebContentStructures#addCP">
+			<var name="structureDescription" value="Events Custom Description" />
+			<var name="structureName" value="Events Custom" />
+		</execute>
+
+		<execute macro="DynamicDataMapping#addField">
+			<var name="field" value="Documents and Media" />
+			<var name="fieldFieldLabel" value="Cover Image" />
+			<var name="fieldName" value="NewsCoverImage" />
+		</execute>
+
+		<execute macro="DynamicDataMapping#addField">
+			<var name="field" value="Text" />
+			<var name="fieldFieldLabel" value="Headline" />
+			<var name="fieldName" value="EventsHeadline" />
+		</execute>
+
+		<execute macro="DynamicDataMapping#addField">
+			<var name="field" value="Date" />
+			<var name="fieldFieldLabel" value="Event Date" />
+			<var name="fieldName" value="EventDate" />
+		</execute>
+
+		<execute macro="DynamicDataMapping#addField">
+			<var name="field" value="Text Box" />
+			<var name="fieldFieldLabel" value="Lead Text" />
+			<var name="fieldName" value="EventsLeadText" />
+		</execute>
+
+		<execute macro="WebContentStructures#saveCP">
+			<var name="structureName" value="Events Custom" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Web Content" />
+		</execute>
+
+		<execute macro="LAR#importPortlet">
+			<var name="larFileName" value="frontPage-structures.lar" />
+			<var name="uploadFrom" value="dependencies" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Web Content" />
+		</execute>
+
+		<execute macro="LAR#importPortlet">
+			<var name="larFileName" value="space-templates.lar" />
+			<var name="uploadFrom" value="dependencies" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Web Content" />
+		</execute>
+
+		<execute macro="WebContentFolder#gotoCP">
+			<var name="folderName" value="Front Page Content" />
+			<var name="webContentTitle" value="Front Page Content" />
+		</execute>
+
+		<execute macro="WebContentNavigator#gotoAddWithStructureCP">
+			<var name="structureName" value="1 Column Banner" />
+		</execute>
+
+		<execute macro="WebContent#addWithStructureCP">
+			<var name="abstractSummary" value="The Structured Banner for the S.P.A.C.E. FrontPage" />
+			<var name="fieldName" value="title" />
+			<var name="fieldName2" value="heading1" />
+			<var name="webContentImage" value="Spaceport.jpg" />
+			<var name="webContentTextBox" value="Space Program Academy of Continuing Education" />
+			<var name="webContentTextBox2" value="Dare to dream out of this world" />
+			<var name="webContentTitle" value="S.P.A.C.E. Banner" />
+		</execute>
+
+		<execute macro="PortletEntry#publish" />
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="WebContentDisplayPortlet#changeWebContent">
+			<var name="webContentTitle" value="S.P.A.C.E. Banner" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Web Content" />
+		</execute>
+
+		<execute macro="LAR#importPortlet">
+			<var name="larFileName" value="S.P.A.C.E.-News-and-Events.lar" />
+			<var name="uploadFrom" value="dependencies" />
+		</execute>
+
+		<execute macro="Navigator#openSiteURL">
+			<var name="siteName" value="S.P.A.C.E." />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Web Content" />
+		</execute>
+
+		<for list="When It All Began...,Stravinksy in Space?,Student Spotlight,Upcoming Press Conference,New Student Orientation,Fall Special Speaker Series" param="webContentTitle">
+			<execute macro="WebContent#viewTitle">
+				<var name="webContentTitle" value="${webContentTitle}" />
+			</execute>
+		</for>
+
+		<execute macro="WebContent#moveArticlesToFolderCP">
+			<var name="folderName" value="News" />
+			<var name="webContentArticlesList" value="When It All Began...,Stravinksy in Space?,Student Spotlight" />
+		</execute>
+
+		<var name="folderName" value="Events" />
+		<var name="webContentArticlesList" value="Upcoming Press Conference,New Student Orientation,Fall Special Speaker Series" />
+
+		<for list="${webContentArticlesList}" param="webContentTitle">
+			<execute function="Check" locator1="WC#ENTRY_DESCRIPTIVE_CHECKBOX">
+				<var name="key_webContentTitle" value="${webContentTitle}" />
+			</execute>
+		</for>
+
+		<execute function="Click" locator1="WC#TOOLBAR_MOVE_BUTTON" />
+
+		<execute function="AssertTextEquals" locator1="Portlet#HEADER" value1="Move Web Content" />
+
+		<execute function="Click" locator1="Button#PARENT_FOLDER_SELECT" />
+
+		<execute macro="IFrame#selectDialogFrame" />
+
+		<execute function="AssertClick" locator1="WC#FOLDER_TABLE_CHOOSE" value1="Choose">
+			<var name="key_folderName" value="Events" />
+		</execute>
+
+		<execute function="SelectFrameTop" />
+
+		<execute function="AssertClick" locator1="Button#DONE" value1="Done" />
+
+		<execute function="AssertClick" locator1="Button#MOVE" value1="Move" />
+
+		<execute macro="Alert#waitForSuccessMessageHide" />
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Configuration" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Workflow Definition" />
+		</execute>
+
+		<execute macro="Workflow#uploadDefinition">
+			<var name="workflowDefinitionFile" value="advanced-governors-review-edit.xml" />
+			<var name="workflowDefinitionTitle" value="Quarterly Reports Review Process" />
+		</execute>
+
+		<execute macro="Workflow#viewDefinition">
+			<var name="workflowDefinitionName" value="Quarterly Reports Review Process" />
+			<var name="workflowDefinitionTitle" value="Quarterly Reports Review Process" />
+			<var name="workflowDefinitionVersionNumber" value="1" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="UsersAndOrganizationsNavigator#gotoOrganizations" />
+
+		<execute macro="Organization#addSiteCPWithPrivatePage">
+			<var name="checkEnablePropagationCheckbox" value="false" />
+			<var name="organizationSite" value="Intranet Site" />
+			<var name="orgName" value="Board of Governors" />
+			<var name="orgType" value="Organization" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Board of Governors" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Documents and Media" />
+		</execute>
+
+		<execute function="Click" locator1="Icon#DISPLAY_STYLE_ICON" />
+
+		<execute macro="DMFolder#addCP">
+			<var name="dmFolderDescription" value="Quarterly Financial Reports Description" />
+			<var name="dmFolderName" value="Quarterly Financial Reports" />
+		</execute>
+
+		<execute macro="DMFolder#configureWorkflowCP">
+			<var name="dmFolderName" value="Quarterly Financial Reports" />
+			<var name="workflowDefinition" value="Quarterly Reports Review Process (Version 1)" />
+			<var name="workflowRestriction" value="Default Workflow" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="User#assignRegularRoleCP">
+			<var name="roleName" value="Board Member" />
+			<var name="userScreenName" value="test" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Board of Governors" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Documents and Media" />
+		</execute>
+
+		<execute macro="DMFolder#gotoCP">
+			<var name="dmFolderName" value="Quarterly Financial Reports" />
+		</execute>
+
+		<execute macro="DMDocument#addWithWorkflowCP">
+			<var name="dmDocumentFile" value="space-financial-report.pdf" />
+			<var name="dmDocumentTitle" value="space-financial-report.pdf" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="Page#gotoMyAccount">
+			<var name="portletName" value="My Workflow Tasks" />
+		</execute>
+
+		<execute macro="Workflow#assignToMeTaskByActions">
+			<var name="workflowAssetTitle" value="space-financial-report.pdf" />
+			<var name="workflowAssetType" value="Document" />
+			<var name="workflowTask" value="Board Member Review 1" />
+		</execute>
+
+		<for list="Board Member Review 2,Board Member Review 3,Board Member Review 4" param="workflowTask">
+			<execute macro="Navigator#openURL" />
+
+			<execute macro="Page#gotoMyAccount">
+				<var name="portletName" value="My Workflow Tasks" />
+			</execute>
+
+			<execute macro="Workflow#gotoTaskAssignedToMyRolesActionsCmd">
+				<var name="workflowAssetTitle" value="space-financial-report.pdf" />
+				<var name="workflowTask" value="${workflowTask}" />
+			</execute>
+
+			<execute function="AssertClick" locator1="MenuItem#ANY_MENU_ITEM" value1="${workflowTask}">
+				<var name="key_menuItem" value="${workflowTask}" />
+			</execute>
+
+			<execute macro="Workflow#confirmAndViewSucessMessageViaActions" />
+
+			<execute function="Refresh" />
+
+			<execute macro="Navigator#gotoNavTab">
+				<var name="navTab" value="Assigned to My Roles" />
+			</execute>
+
+			<execute macro="Workflow#assignToMeTaskByActions">
+				<var name="workflowAssetTitle" value="space-financial-report.pdf" />
+				<var name="workflowAssetType" value="Document" />
+				<var name="workflowTask" value="${workflowTask}" />
+			</execute>
+		</for>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="S.P.A.C.E" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Web Content" />
+		</execute>
+
+		<execute macro="WebContentNavigator#gotoManageStructures" />
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="S.P.A.C.E" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Web Content" />
+		</execute>
+
+		<execute macro="Workflow#configureWorkflowViaFolderInfo">
+			<var name="workflowDefinition" value="Single Approver (Version 1)" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Web Content" />
+		</execute>
+
+		<execute macro="WebContentNavigator#gotoManageTemplates" />
+
+		<execute macro="WebContentTemplates#addCP">
+			<var name="templateDescription" value="SPACE Events Template Description" />
+			<var name="templateLanguage" value="ftl" />
+			<var name="templateName" value="SPACE Events" />
+		</execute>
+
+		<execute macro="WebContentTemplates#addStructure">
+			<var name="structureName" value="Events Custom" />
+		</execute>
+
+		<execute macro="DDLDataDefinition#save" />
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Web Content" />
+		</execute>
+
+		<execute function="Click" locator1="Icon#DISPLAY_STYLE_DESCRIPTIVE" />
+
+		<execute macro="WebContentFolder#addSubfolderCP">
+			<var name="folderName" value="Events (2)" />
+			<var name="subfolderDescription" value="Highlighted Description" />
+			<var name="subfolderName" value="Highlighted" />
+		</execute>
+
+		<execute macro="WebContentFolder#gotoCP">
+			<var name="folderName" value="Highlighted" />
+			<var name="webContentTitle" value="Highlighted" />
+		</execute>
+
+		<execute macro="WebContentNavigator#gotoAddWithStructureCP">
+			<var name="structureName" value="Events Custom" />
+		</execute>
+
+		<execute macro="WebContent#addWithStructureCP">
+			<var name="dateFieldName" value="EventDate" />
+			<var name="fieldName" value="EventsLead" />
+			<var name="pageName" value="News and Events" />
+			<var name="textFieldName" value="EventsHeadline" />
+			<var name="webContentDate" value="09/17/2065" />
+			<var name="webContentText" value="New Student Orientation" />
+			<var name="webContentTextBox"><![CDATA[Title: New Student Orientation
+
+Headline: New Student Orientation
+
+Event Date: 09/17/2065
+
+Lead Text: Attention, incoming students: New Student Orientation begins at 2:00 P.M. Monday, August 17th in the Carelli Auditorium on South Campus.]]></var>
+			<var name="webContentTitle" value="New Student Orientation" />
+		</execute>
+
+		<execute macro="Button#clickSubmitForPublication" />
+
+		<execute macro="Alert#viewSuccessMessage" />
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="Page#gotoMyAccount">
+			<var name="portletName" value="Notifications" />
+		</execute>
+
+		<execute macro="Notifications#reviewViaNotificationsEntry">
+			<var name="menuItem" value="Assign to Me" />
+			<var name="notificationsWorkflowTitle" value="Space Admin sent you a Web Content Article for review in the workflow." />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="Page#gotoMyAccount">
+			<var name="portletName" value="Notifications" />
+		</execute>
+
+		<execute macro="Notifications#gotoNotificationsEntry">
+			<var name="notificationsWorkflowTitle" value="Space Admin sent you a Web Content Article for review in the workflow." />
+		</execute>
+
+		<execute macro="Workflow#gotoPreviewEdit" />
+
+		<execute macro="WebContent#editInReview">
+			<var name="webContentImage" value="library.jpg" />
+			<var name="webContentTitleEdit" value="New Student Orientation Edit" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="Page#gotoMyAccount">
+			<var name="portletName" value="My Workflow Tasks" />
+		</execute>
+
+		<execute macro="Workflow#approveTaskByActions">
+			<var name="workflowAssetTitle" value="New Student Orientation Edit" />
+			<var name="workflowAssetType" value="Web Content Article" />
+			<var name="workflowTask" value="Review" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Configuration" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Kaleo Designer" />
+		</execute>
+
+		<execute macro="TestCase#getFileContent">
+			<return from="fileContent" name="fileContent" />
+			<var name="fileName" value="advanced-governors-review.xml" />
+		</execute>
+
+		<execute macro="KaleoDesigner#viewTableDefinitionPublishedViaKDCP">
+			<var name="workflowDefinitionTitle" value="Quarterly Reports Review Process" />
+		</execute>
+
+		<execute macro="KaleoDesigner#editWorkflowDefinitionViaKDCP">
+			<var name="workflowDefinitionName" value="Quarterly Reports Review Process" />
+			<var name="workflowDefinitionTitle" value="Quarterly Reports Review Process" />
+		</execute>
+
+		<execute macro="KaleoDesigner#editSourceXML">
+			<var name="kdSourceXML" value="${fileContent}" />
+			<var name="line" value="1" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="S.P.A.C.E" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Publishing" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Staging" />
+		</execute>
+
+		<execute macro="Staging#activateStagingCP">
+			<var name="contentNameList" value="Documents and Media,Mobile Device Families,Web Content" />
+			<var name="siteName" value="S.P.A.C.E" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="S.P.A.C.E" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoStagingSite" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Publishing" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Staging" />
+		</execute>
+
+		<execute macro="Staging#editStagingConfiguration">
+			<var name="publicPageVersioningEnabled" value="true" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="S.P.A.C.E" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoStagingSite" />
+
+		<execute macro="Staging#addPageVariationPG">
+			<var name="pageVariationName" value="Site Launch" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="S.P.A.C.E" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoStagingSite" />
+
+		<execute macro="Page#add">
+			<var name="columnName" value="1-2-1 Columns" />
+			<var name="pageName" value="Staging Page" />
+		</execute>
+
+		<execute macro="Content#addPG">
+			<var name="assetTitle" value="S.P.A.C.E. Banner" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="S.P.A.C.E" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoStagingSite" />
+
+		<execute macro="Navigator#_gotoPage">
+			<var name="pageName" value="Staging Page" />
+		</execute>
+
+		<execute macro="Content#addPG">
+			<var name="assetTitle" value="About S.P.A.C.E." />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="S.P.A.C.E" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoStagingSite" />
+
+		<execute macro="Navigator#_gotoPage">
+			<var name="pageName" value="Staging Page" />
+		</execute>
+
+		<execute macro="Content#addPG">
+			<var name="assetTitle" value="News" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="S.P.A.C.E" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoStagingSite" />
+
+		<execute macro="Navigator#_gotoPage">
+			<var name="pageName" value="Staging Page" />
+		</execute>
+
+		<execute macro="Content#addPG">
+			<var name="assetTitle" value="Events" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="S.P.A.C.E" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoStagingSite" />
+
+		<execute macro="Navigator#_gotoPage">
+			<var name="pageName" value="Staging Page" />
+		</execute>
+
+		<execute macro="Content#addPG">
+			<var name="assetTitle" value="S.P.A.C.E. Footer" />
+		</execute>
+
+		<execute macro="Staging#viewStagingWorkflowStatusPG">
+			<var name="stagingWorkflowStatus" value="Ready for Publication" />
+		</execute>
+
+		<execute macro="Staging#schedulePublishToLivePG">
+			<var name="scheduleTitleName" value="Site Launch" />
+		</execute>
+
+		<execute function="Pause" locator1="120000" />
+
+		<execute macro="Navigator#gotoSitePage">
+			<var name="pageName" value="Staging Page" />
+			<var name="siteName" value="S.P.A.C.E" />
+		</execute>
+
+		<execute function="AssertTextEquals#assertPartialText" locator1="WCD#WEB_CONTENT_CONTENT" value1="Dare to dream out of this world" />
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="S.P.A.C.E" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoStagingSite" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Publishing" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Import" />
+		</execute>
+
+		<execute macro="LAR#importSiteCP">
+			<var name="larFileName" value="Landing_Page_Redesign.lar" />
+			<var name="mirrorWithOverwriting" value="true" />
+			<var name="uploadFrom" value="dependencies" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="S.P.A.C.E" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoStagingSite" />
+
+		<execute macro="Content#addPG">
+			<var name="assetTitle" value="About S.P.A.C.E." />
+		</execute>
+
+		<execute function="AssertTextEquals#assertPartialText" locator1="WCD#WEB_CONTENT_CONTENT" value1="Dream even bigger" />
+
+		<execute macro="ProductMenu#gotoLiveSite" />
+
+		<execute function="AssertTextNotEquals#assertNotPartialText" locator1="WCD#WEB_CONTENT_CONTENT" value1="Dream even bigger" />
+
+		<execute macro="ProductMenu#gotoStagingSite" />
+
+		<execute macro="Staging#gotoPublishToLive" />
+
+		<execute macro="Staging#publishToLive">
+			<var name="publicationName" value="Content Update" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoLiveSite" />
+
+		<execute function="AssertTextEquals#assertPartialText" locator1="WCD#WEB_CONTENT_CONTENT" value1="Dream even bigger" />
+	</command>
+
+	<command name="TrainingDemo4" priority="5">
+		<property name="database.types" value="hypersonic" />
+		<property name="liferay.training.dependency.jars" value="src/01-liferay-fundamentals/02-integrating-identity-management/com.liferay.docs.samplecontent-1.0.0.jar" />
+		<property name="test.name.skip.portal.instance" value="TrainingHSQL#TrainingDemo4" />
+		<property name="testray.component.names" value="Training" />
+
+		<execute macro="SetupWizard#configurePG">
+			<var name="addSampleData" value="false" />
+			<var name="administratorEmail" value="space.admin@spaceprogram.liferay.com" />
+			<var name="administratorFirstName" value="Space" />
+			<var name="administratorLastName" value="Admin" />
+			<var name="databaseName" value="lportal1" />
+			<var method="TestPropsUtil#get('database.hypersonic.password')" name="databasePassword" />
+			<var name="databaseType" value="Hypersonic" />
+			<var method="TestPropsUtil#get('database.hypersonic.username')" name="databaseUserName" />
+			<var method="TestPropsUtil#get('database.hypersonic.driver')" name="jdbcDriverClassName" />
+			<var method="TestPropsUtil#get('database.hypersonic.url')" name="jdbcURL" />
+			<var name="portalName" value="S.P.A.C.E" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Configuration" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Server Administration" />
+		</execute>
+
+		<execute macro="ServerAdministration#executeServerResourcesActions">
+			<var name="actionsDescription" value="Reindex all search indexes." />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="User#addCP">
+			<var name="userEmailAddress" value="userea@liferay.com" />
+			<var name="userFirstName" value="userfn" />
+			<var name="userLastName" value="userln" />
+			<var name="userScreenName" value="usersn" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="User#editPasswordCP">
+			<var name="administratorEmail" value="space.admin@spaceprogram.liferay.com" />
+			<var name="userEmailAddress" value="userea@liferay.com" />
+			<var name="userScreenName" value="usersn" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="User#assignRegularRoleCP">
+			<var name="roleName" value="Administrator" />
+			<var name="userScreenName" value="usersn" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="Portlet#addPG">
+			<var name="pageName" value="Mock LDAP Page" />
+			<var name="portletName" value="Mock LDAP" />
+		</execute>
+
+		<execute macro="MockLDAP#selectJsonFile">
+			<var name="fileName" value="space-groups.json" />
+			<var name="tabName" value="User Groups" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="User Groups" />
+		</execute>
+
+		<execute macro="Pagination#changePagination">
+			<var name="itemsPerPage" value="20" />
+		</execute>
+
+		<execute macro="Pagination#viewResults">
+			<var name="results" value="Showing 1 to 11 of 11 entries." />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="MockLDAP#selectJsonFile">
+			<var name="fileName" value="space-users.json" />
+			<var name="tabName" value="Users" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="Pagination#changePagination">
+			<var name="itemsPerPage" value="20" />
+		</execute>
+
+		<execute macro="Pagination#viewResults">
+			<var name="results" value="Showing 1 to 20 of 116 entries." />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="UsersAndOrganizationsNavigator#gotoOrganizations" />
+
+		<execute macro="LAR#importPortlet">
+			<var name="larFileName" value="organizations-7.0.lar" />
+			<var name="uploadFrom" value="dependencies" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="UsersAndOrganizationsNavigator#gotoOrganizations" />
+
+		<execute macro="Organization#addMemberCP">
+			<var name="orgName" value="Space Program Academy of Continuing Education" />
+			<var name="userFirstName" value="userfn" />
+			<var name="userLastName" value="userln" />
+			<var name="userScreenName" value="usersn" />
+		</execute>
+
+		<execute macro="User#logoutAndLoginPG">
+			<var name="userLoginEmailAddress" value="userea@liferay.com" />
+			<var name="userLoginFullName" value="userfn userln" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="S.P.A.C.E" />
+		</execute>
+
+		<execute macro="Portlet#deletePG">
+			<var name="portletName" value="Mock LDAP" />
+		</execute>
+
+		<execute macro="Portlet#deletePG">
+			<var name="portletName" value="Hello World" />
+		</execute>
+
+		<execute macro="SitePageNavigator#gotoEditPage">
+			<var name="page" value="Welcome" />
+		</execute>
+
+		<execute macro="Page#viewSelectedLayoutColumn">
+			<var name="columnName" value="1 Column" />
+		</execute>
+
+		<execute macro="Page#editName">
+			<var name="pageNameEdit" value="Home" />
+		</execute>
+
+		<execute macro="SitePageNavigator#gotoPages">
+			<var name="page" value="Public Pages" />
+		</execute>
+
+		<execute macro="Page#view">
+			<var name="pageName" value="Home" />
+		</execute>
+
+		<execute macro="Portlet#addPG">
+			<var name="portletName" value="Web Content Display" />
+		</execute>
+
+		<execute macro="Navigator#gotoPage">
+			<var name="pageName" value="Home" />
+		</execute>
+
+		<execute macro="Portlet#addPG">
+			<var name="portletName" value="Asset Publisher" />
+		</execute>
+
+		<execute macro="Navigator#gotoPage">
+			<var name="pageName" value="Home" />
+		</execute>
+
+		<execute macro="Portlet#addPG">
+			<var name="portletName" value="Web Content Display" />
+		</execute>
+
+		<execute macro="Navigator#gotoPage">
+			<var name="pageName" value="Home" />
+		</execute>
+
+		<execute macro="Portlet#addPG">
+			<var name="portletName" value="Asset Publisher" />
+		</execute>
+
+		<execute macro="Navigator#gotoPage">
+			<var name="pageName" value="Home" />
+		</execute>
+
+		<execute macro="Portlet#addPG">
+			<var name="portletName" value="Web Content Display" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="S.P.A.C.E" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Web Content" />
+		</execute>
+
+		<execute macro="LAR#importPortlet">
+			<var name="larFileName" value="space-content-7.0.lar" />
+			<var name="siteName" value="S.P.A.C.E" />
+			<var name="uploadFrom" value="dependencies" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="Portlet#gotoPortletOptions">
+			<var name="portletName" value="Web Content Display" />
+			<var name="portletOption" value="Look and Feel Configuration" />
+		</execute>
+
+		<execute macro="Portlet#selectApplicationDecorator">
+			<var name="decorator" value="Barebone" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="Portlet#gotoPortletOptions">
+			<var name="portletName" value="Asset Publisher" />
+			<var name="portletOption" value="Look and Feel Configuration" />
+		</execute>
+
+		<execute macro="Portlet#configureCustomTitleViaLookandfeelPG">
+			<var name="customPortletTitle" value="News" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="AssetPublisherPortlet#configureAssetTypePG">
+			<var name="assetSubtype" value="News" />
+			<var name="selectedAsset" value="Web Content Article" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="Portlet#gotoSpecificPortletOptions">
+			<var name="order" value="2" />
+			<var name="portletName" value="Web Content Display" />
+			<var name="portletOption" value="Look and Feel Configuration" />
+		</execute>
+
+		<execute macro="Portlet#selectApplicationDecorator">
+			<var name="decorator" value="Barebone" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="Portlet#gotoSpecificPortletOptions">
+			<var name="order" value="2" />
+			<var name="portletName" value="Asset Publisher" />
+			<var name="portletOption" value="Look and Feel Configuration" />
+		</execute>
+
+		<execute macro="Portlet#configureCustomTitleViaLookandfeelPG">
+			<var name="customPortletTitle" value="Events" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="AssetPublisherPortlet#configureAssetTypePG">
+			<var name="assetSubtype" value="Events" />
+			<var name="order" value="2" />
+			<var name="portletName" value="Asset Publisher" />
+			<var name="selectedAsset" value="Web Content Article" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="Portlet#gotoSpecificPortletOptions">
+			<var name="order" value="3" />
+			<var name="portletName" value="Web Content Display" />
+			<var name="portletOption" value="Look and Feel Configuration" />
+		</execute>
+
+		<execute macro="Portlet#selectApplicationDecorator">
+			<var name="decorator" value="Barebone" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="WebContentDisplayPortlet#selectWebContent">
+			<var name="webContentTitle" value="S.P.A.C.E. Banner" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="WebContentDisplayPortlet#selectWebContent">
+			<var name="order" value="2" />
+			<var name="webContentTitle" value="About S.P.A.C.E." />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="WebContentDisplayPortlet#selectWebContent">
+			<var name="order" value="3" />
+			<var name="webContentTitle" value="S.P.A.C.E. Footer" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="UsersAndOrganizationsNavigator#gotoOrganizations" />
+
+		<execute macro="Organization#addSiteCPWithPrivatePage">
+			<var name="checkEnablePropagationCheckbox" value="false" />
+			<var name="organizationSite" value="Intranet Site" />
+			<var name="orgName" value="Human Resources" />
+			<var name="orgType" value="Organization" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Human Resources" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Publishing" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Import" />
+		</execute>
+
+		<execute macro="LAR#importSiteCP">
+			<var name="larFileName" value="HR_Home_Page_Content.lar" />
+			<var name="uploadFrom" value="dependencies" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Users" />
+			<var name="panel" value="Control Panel" />
+			<var name="portlet" value="Users and Organizations" />
+		</execute>
+
+		<execute macro="UsersAndOrganizationsNavigator#gotoOrganizations" />
+
+		<execute macro="Organization#manageMembershipOptionsInSites">
+			<var name="allowManualMembershipManagement" value="true" />
+			<var name="orgName" value="Human Resources" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Human Resources" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Members" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Site Memberships" />
+		</execute>
+
+		<for list="Agricultural Science,Board Member,Business: Accounting,Business: Business Administration,Engineering: Aerospace Engineering: Aeronautics,Engineering: Aerospace Engineering: Astronautics,Engineering: Civil Engineering,Engineering: Computer Engineering,Engineering: Electrical Engineering,Engineering: Mechanical Engineering" param="userGroupName">
+			<execute macro="Site#assignUserGroupAsMemberCP">
+				<var name="userGroupName" value="${userGroupName}" />
+			</execute>
+		</for>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Human Resources" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPrivatePages" />
+
+		<execute macro="Navigator#_gotoPage">
+			<var name="pageName" value="Documents and Media" />
+		</execute>
+
+		<execute macro="DMDocument#addMultiplePG">
+			<var name="dmDocumentFileList" value="Hariet Winters Contract.pdf,Jane Phillips Contract.pdf,Peter Vance Contract.pdf" />
+			<var name="viewableBy" value="Owner" />
+		</execute>
+
+		<execute macro="DMFolder#addPG">
+			<var name="dmFolderName" value="Employee Contracts" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Human Resources" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Documents and Media" />
+		</execute>
+
+		<execute macro="DMNavigator#gotoFolderPermissions">
+			<var name="dmFolderName" value="Employee Contracts" />
+		</execute>
+
+		<for list="INLINE_PERMISSIONS_ADD_SUBFOLDER_CHECKBOX,INLINE_PERMISSIONS_ADD_SHORTCUT_CHECKBOX,INLINE_PERMISSIONS_UPDATE_CHECKBOX,INLINE_PERMISSIONS_ADD_DOCUMENT_CHECKBOX,INLINE_PERMISSIONS_SUBSCRIBE_CHECKBOX,INLINE_PERMISSIONS_VIEW_CHECKBOX" param="permissionsInLineUncheckListsCount">
+			<execute macro="Role#removePermissionPG">
+				<var name="permissionDefinitionKey" value="${permissionsInLineUncheckListsCount}" />
+				<var name="roleName" value="Site Member" />
+			</execute>
+		</for>
+
+		<for list="INLINE_PERMISSIONS_ADD_DOCUMENT_CHECKBOX,INLINE_PERMISSIONS_VIEW_CHECKBOX,INLINE_PERMISSIONS_ACCESS_CHECKBOX" param="permissionsInLineCheckListsCount">
+			<execute macro="Role#definePermissionPG">
+				<var name="permissionDefinitionKey" value="${permissionsInLineCheckListsCount}" />
+				<var name="roleName" value="Organization User" />
+			</execute>
+		</for>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Human Resources" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Documents and Media" />
+		</execute>
+
+		<execute macro="LAR#importPortlet">
+			<var name="larFileName" value="SPACE_Employee_Information.lar" />
+			<var name="uploadFrom" value="dependencies" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Human Resources" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Documents and Media" />
+		</execute>
+
+		<execute macro="LexiconEntry#gotoHeaderMenuItem">
+			<var name="menuItem" value="Document Types" />
+		</execute>
+
+		<execute macro="DMDocumentType#edit">
+			<var name="dmDocumentTypeFieldLabel" value="Active" />
+			<var name="dmDocumentTypeFieldNames" value="Boolean" />
+			<var name="dmDocumentTypeName" value="S.P.A.C.E. Employee Information Sheet" />
+			<var name="fieldPredefinedValue" value="Yes" />
+		</execute>
+
+		<execute macro="DMDocumentType#edit">
+			<var name="dmDocumentTypeFieldLabel" value="Tenured" />
+			<var name="dmDocumentTypeFieldNames" value="Boolean" />
+			<var name="dmDocumentTypeName" value="S.P.A.C.E. Employee Information Sheet" />
+			<var name="fieldPredefinedValue" value="Yes" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="Page#add">
+			<var name="columnName" value="1 Column" />
+			<var name="pageName" value="Employee Information" />
+			<var name="siteName" value="Human Resources" />
+			<var name="sitePagePrivacy" value="Private" />
+			<var name="sitePageType" value="Empty Page" />
+		</execute>
+
+		<execute macro="Navigator#openPrivateSitePageURL">
+			<var name="pageName" value="Employee Information" />
+			<var name="siteName" value="Human Resources" />
+		</execute>
+
+		<execute macro="Portlet#addPG">
+			<var name="pageName" value="Employee Information" />
+			<var name="portletName" value="Knowledge Base Display" />
+		</execute>
+
+		<execute macro="Navigator#openPrivateSitePageURL">
+			<var name="pageName" value="Employee Information" />
+			<var name="siteName" value="Human Resources" />
+		</execute>
+
+		<execute macro="Portlet#addPG">
+			<var name="pageName" value="Employee Information" />
+			<var name="portletName" value="Knowledge Base Search" />
+		</execute>
+
+		<execute macro="Navigator#openPrivateSitePageURL">
+			<var name="pageName" value="Employee Information" />
+			<var name="siteName" value="Human Resources" />
+		</execute>
+
+		<execute macro="Portlet#gotoPortletOptions">
+			<var name="portletName" value="Knowledge Base Search" />
+			<var name="portletOption" value="Look and Feel Configuration" />
+		</execute>
+
+		<execute macro="Portlet#configureCustomTitleViaLookandfeelPG">
+			<var name="customPortletTitle" value="" />
+		</execute>
+
+		<execute macro="Navigator#openPrivateSitePageURL">
+			<var name="pageName" value="Employee Information" />
+			<var name="siteName" value="Human Resources" />
+		</execute>
+
+		<execute macro="Portlet#gotoPortletOptions">
+			<var name="portletName" value="Knowledge Base Display" />
+			<var name="portletOption" value="Look and Feel Configuration" />
+		</execute>
+
+		<execute macro="Portlet#configureCustomTitleViaLookandfeelPG">
+			<var name="customPortletTitle" value="Employee Handbook" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Human Resources" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Content" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Knowledge Base" />
+		</execute>
+
+		<execute macro="KBFolder#addCP">
+			<var name="kbFolderDescription" value="This is S.P.A.C.E. Faculty and Staff Handbook Folder." />
+			<var name="kbFolderName" value="S.P.A.C.E. Faculty and Staff Handbook" />
+		</execute>
+
+		<execute macro="KBFolder#gotoCP">
+			<var name="kbFolderName" value="S.P.A.C.E. Faculty and Staff Handbook" />
+		</execute>
+
+		<execute macro="KBArticle#addCP">
+			<var name="kbArticleContent" value="Article Content" />
+			<var name="kbArticleTitle" value="A Brief Note about SPACE" />
+		</execute>
+
+		<execute macro="Navigator#openSiteURL">
+			<var name="siteName" value="S.P.A.C.E" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Publishing" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Staging" />
+		</execute>
+
+		<execute macro="Staging#activateStagingCP">
+			<var name="siteName" value="S.P.A.C.E" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="S.P.A.C.E" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoStagingSite" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Publishing" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Import" />
+		</execute>
+
+		<execute macro="LAR#importSiteCP">
+			<var name="larFileName" value="Landing_Page_Redesign.lar" />
+			<var name="mirrorWithOverwriting" value="true" />
+			<var name="uploadFrom" value="dependencies" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="S.P.A.C.E" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoStagingSite" />
+
+		<execute macro="Staging#gotoPublishToLive" />
+
+		<execute macro="Staging#publishToLive">
+			<var name="publicationName" value="Content Update" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Human Resources" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Publishing" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Staging" />
+		</execute>
+
+		<execute macro="Staging#activateStagingCP">
+			<var name="pageVersioningEnabled" value="true" />
+			<var name="siteName" value="Human Resources" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Human Resources" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoStagingSite" />
+
+		<execute macro="ProductMenu#gotoPortlet">
+			<var name="category" value="Publishing" />
+			<var name="panel" value="Site Administration" />
+			<var name="portlet" value="Import" />
+		</execute>
+
+		<execute macro="LAR#importSiteCP">
+			<var name="larFileName" value="HR_Home_Page_Content.lar" />
+			<var name="uploadFrom" value="dependencies" />
+		</execute>
+
+		<execute macro="Navigator#openURL" />
+
+		<execute macro="ProductMenu#gotoSite">
+			<var name="site" value="Human Resources" />
+		</execute>
+
+		<execute macro="ProductMenu#gotoStagingSite" />
+
+		<execute function="AssertTextEquals" locator1="WCD#WEB_CONTENT_CONTENT" value1="Faculty Meet-and-Greet Brunch Events All faculty are invited to a Meet-and-Greet Brunch at Allen Café 11:00 A.M. Saturday, June 13. This brunch is intended to introduce new faculty members and promote inter-departmental unity. Brunch will be catered by the Provincetown chapter of the NECI." />
+		<execute function="AssertTextEquals" locator1="WCD#WEB_CONTENT_CONTENT_2" value1="New Faculty and Staff Orientation Events Attention all new faculty and staff: Orientation will be held Monday, June 8 at 8:00 A.M. New faculty should meet in Rm. 221 and new staff should meet in Rm. 139 of Adams Hall. A full schedule of orientation will be emailed to you in the coming weeks." />
+		<execute function="AssertTextEquals" locator1="WCD#WEB_CONTENT_CONTENT_3" value1="Vaccinations and Physical Check-Ups Health Any members of faculty or staff planning to leave Earth are required to have up-to-date vaccinations. Please check with the Health Center on your status. In addition, each and every Earth departure requires a physical check-up. The Health Center is happy to give both vaccinations and physical check-ups free of charge." />
+
+		<execute macro="Staging#viewStagingWorkflowStatusPG">
+			<var name="stagingWorkflowStatus" value="Ready for Publication" />
+		</execute>
+
+		<execute macro="Staging#schedulePublishToLivePG">
+			<var name="frequency" value="Yearly" />
+			<var name="scheduleTitleName" value="Staging Schedule Title" />
+		</execute>
+	</command>
+</definition>

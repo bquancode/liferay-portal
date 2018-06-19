@@ -1,0 +1,11 @@
+;
+; Do not manually edit this file.
+;
+[subrepo]
+	autopull = false
+	cmdver = liferay
+	commit = ae0cb9f4ac0e66db32429afb66504dfb04b7f75d
+	mergebuttonmergecommits = false
+	mode = push
+	parent = f7b1687d51c055649545202a0581425f8c48b007
+	remote = git@github.com:liferay/com-liferay-portal-osgi-web.git
