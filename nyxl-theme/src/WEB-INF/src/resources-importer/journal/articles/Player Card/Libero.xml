@@ -8,7 +8,7 @@
 		<dynamic-content language-id="en_US" alt="" name="libero.png" title="libero.png" type="document" fileEntryId=""><![CDATA[/documents/20142/49423/libero.png/2a12819f-0137-29c9-a1eb-cb4fa3c4ce9a?t=1528216713655]]></dynamic-content>
 	</dynamic-element>
 	<dynamic-element name="imageFull" type="image" index-type="text" instance-id="flwq">
-		<dynamic-content language-id="en_US" alt="" name="libero-full.png" title="libero-full.png" type="document" fileEntryId="53935"><![CDATA[/documents/20142/49423/libero-full.png/ce2b8c7a-f3ae-a207-e62d-78d0367ca214?t=1528486232484]]></dynamic-content>
+		<dynamic-content language-id="en_US" alt="" name="libero_full.png" title="libero_full.png" type="document" fileEntryId="53935"><![CDATA[/documents/20142/49423/libero_full.png/ce2b8c7a-f3ae-a207-e62d-78d0367ca214?t=1528486232484]]></dynamic-content>
 	</dynamic-element>
 	<dynamic-element name="handle" type="text" index-type="keyword" instance-id="guls">
 		<dynamic-content language-id="en_US"><![CDATA[Libero]]></dynamic-content>

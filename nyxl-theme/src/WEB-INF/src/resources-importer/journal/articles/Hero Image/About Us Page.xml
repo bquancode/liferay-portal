@@ -2,7 +2,7 @@
 
 <root available-locales="en_US" default-locale="en_US">
 	<dynamic-element name="image" type="image" index-type="text" instance-id="vklo">
-		<dynamic-content language-id="en_US" alt="" name="roster-skyline-newyork_3.jpg" title="roster-skyline-newyork_3.jpg" type="document" fileEntryId=""><![CDATA[/documents/20142/0/roster-skyline-newyork_3.jpg/dcd47233-e9af-1f55-0fdc-45c600d33585?t=1526920191762]]></dynamic-content>
+		<dynamic-content language-id="en_US" alt="" name="roster_skyline_newyork.jpg" title="roster_skyline_newyork.jpg" type="document" fileEntryId=""><![CDATA[/documents/20142/0/roster_skyline_newyork.jpg/dcd47233-e9af-1f55-0fdc-45c600d33585?t=1526920191762]]></dynamic-content>
 	</dynamic-element>
 	<dynamic-element name="text" type="text" index-type="keyword" instance-id="ecay">
 		<dynamic-content language-id="en_US"><![CDATA[<h1>NEW YORK EXCELSIOR</h1>]]></dynamic-content>

@@ -8,7 +8,7 @@
 		<dynamic-content language-id="en_US" alt="" name="saebyeolbe.png" title="saebyeolbe.png" type="document" fileEntryId=""><![CDATA[/documents/20142/49423/saebyeolbe.png/3884170d-7d3a-19ba-ed9d-10a04df4e807?t=1528216713950]]></dynamic-content>
 	</dynamic-element>
 	<dynamic-element name="imageFull" type="image" index-type="text" instance-id="tkjh">
-		<dynamic-content language-id="en_US" alt="" name="saebyeolbe-full.png" title="saebyeolbe-full.png" type="document" fileEntryId="53891"><![CDATA[/documents/20142/49423/saebyeolbe-full.png/0e960547-bc65-835d-d1c9-a468cb68f203?t=1528486231139]]></dynamic-content>
+		<dynamic-content language-id="en_US" alt="" name="saebyeolbe_full.png" title="saebyeolbe_full.png" type="document" fileEntryId="53891"><![CDATA[/documents/20142/49423/saebyeolbe_full.png/0e960547-bc65-835d-d1c9-a468cb68f203?t=1528486231139]]></dynamic-content>
 	</dynamic-element>
 	<dynamic-element name="handle" type="text" index-type="keyword" instance-id="zuds">
 		<dynamic-content language-id="en_US"><![CDATA[Saebyeolbe]]></dynamic-content>

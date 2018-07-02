@@ -8,7 +8,7 @@
 		<dynamic-content language-id="en_US" alt="" name="ark.png" title="ark.png" type="document" fileEntryId=""><![CDATA[/documents/20142/49423/ark.png/fd2f8323-0691-799f-ce68-71e329bb7c3c?t=1528216713467]]></dynamic-content>
 	</dynamic-element>
 	<dynamic-element name="imageFull" type="image" index-type="text" instance-id="nqli">
-		<dynamic-content language-id="en_US" alt="" name="ark-full.png" title="ark-full.png" type="document" fileEntryId="53970"><![CDATA[/documents/20142/49423/ark-full.png/5c7849d0-43dd-175f-3267-f486e4d92183?t=1528486233996]]></dynamic-content>
+		<dynamic-content language-id="en_US" alt="" name="ark_full.png" title="ark_full.png" type="document" fileEntryId="53970"><![CDATA[/documents/20142/49423/ark_full.png/5c7849d0-43dd-175f-3267-f486e4d92183?t=1528486233996]]></dynamic-content>
 	</dynamic-element>
 	<dynamic-element name="handle" type="text" index-type="keyword" instance-id="vyvo">
 		<dynamic-content language-id="en_US"><![CDATA[Ark]]></dynamic-content>

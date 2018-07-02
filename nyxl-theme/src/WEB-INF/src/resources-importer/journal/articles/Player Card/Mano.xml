@@ -8,7 +8,7 @@
 		<dynamic-content language-id="en_US" alt="" name="mano.png" title="mano.png" type="document" fileEntryId=""><![CDATA[/documents/20142/49423/mano.png/04a04a05-3d76-c72a-bad4-c972484d7983?t=1528216713746]]></dynamic-content>
 	</dynamic-element>
 	<dynamic-element name="imageFull" type="image" index-type="text" instance-id="qxnj">
-		<dynamic-content language-id="en_US" alt="" name="mano-full.png" title="mano-full.png" type="document" fileEntryId="53922"><![CDATA[/documents/20142/49423/mano-full.png/b6a60e88-b459-afe4-1549-70cffd09db0b?t=1528486232435]]></dynamic-content>
+		<dynamic-content language-id="en_US" alt="" name="mano_full.png" title="mano_full.png" type="document" fileEntryId="53922"><![CDATA[/documents/20142/49423/mano_full.png/b6a60e88-b459-afe4-1549-70cffd09db0b?t=1528486232435]]></dynamic-content>
 	</dynamic-element>
 	<dynamic-element name="handle" type="text" index-type="keyword" instance-id="zifk">
 		<dynamic-content language-id="en_US"><![CDATA[Mano]]></dynamic-content>
