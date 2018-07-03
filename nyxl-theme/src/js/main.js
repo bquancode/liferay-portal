@@ -6,6 +6,7 @@ AUI().ready(
 		if (signIn && signIn.getData('redirect') !== 'true') {
 			signIn.plug(Liferay.SignInModal);
 		}
+
 	}
 );
 
@@ -15,17 +16,27 @@ var addFullWidth = (elem) => {
 	if (helloWorldPortlet) {
 		helloWorldPortlet.classList.add('full-width');
 	}
+
 	return helloWorldPortlet;
 };
 
-addEventListener('load', addFullWidth('#portlet_com_liferay_hello_world_web_portlet_HelloWorldPortlet'));
+var helloWorldPortlet = '#portlet_com_liferay_hello_world_web_portlet_HelloWorldPortlet';
+
 
 var banner = document.getElementById('banner');
 
 if (banner) {
-	banner.addEventListener('click', function(event) {
-		if (event.target.className === 'icon-caret-down') {
-			return event.preventDefault();
+	banner.addEventListener('click',
+		function(event) {
+
+			if (event.target.className === 'icon-caret-down') {
+				return event.preventDefault();
+			}
+
 		}
-	})
+	)
 }
+
+addEventListener('load',
+	addFullWidth(helloWorldPortlet)
+);

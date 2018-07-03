@@ -1,24 +1,15 @@
 #footer {
 	background-color: $primary-color;
 	color: $body-text-color;
+	max-width: none;
 	padding: 40px 20px;
-
-	.footer-container {
-		align-content: center;
-		display: flex;
-		justify-content: center;
-	}
-
-	.footer-content {
-		margin-right: 20px;
-	}
+	width: 100%;
 
 	a {
 		color: $body-text-color;
 		transition: $transition;
 
 		&:hover svg {
-
 			&.facebook-svg {
 				fill:#3C5A9A;
 			}
@@ -37,13 +28,27 @@
 		}
 	}
 
-	li {
-		list-style: none;
+	div.row {
+		color: $body-text-color;
+		font-family: $nav-font;
+		text-align: center;
+		width: 100%;
+
+		@include textStyle(1.5px, lowercase);
 	}
 
-	ul {
-		padding: 0;
-		margin: 0;
+	.footer-container {
+		align-content: center;
+		display: flex;
+		justify-content: center;
+	}
+
+	.footer-content {
+		margin-right: 20px;
+	}
+
+	li {
+		list-style: none;
 	}
 
 	svg {
@@ -52,19 +57,9 @@
 		transition: $transition;
 		width: 32px;
 	}
-}
 
-#footer {
-	max-width: none;
-	width: 100%;
-
-	div.row {
-		color: $body-text-color;
-		font-family: $nav-font;
-
-		text-align: center;
-		width: 100%;
-
-		@include textStyle(1.5px, lowercase);
+	ul {
+		padding: 0;
+		margin: 0;
 	}
 }

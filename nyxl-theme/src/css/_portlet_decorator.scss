@@ -75,7 +75,7 @@
 	border-bottom-color: $bright-blue-color;
 }
 
-/* ---------- Blog Styles ---------- */
+/* ---------- Blog styles ---------- */
 
 .portlet-blogs {
 	.entry-info, .hide-accessible {
@@ -111,11 +111,11 @@
 		}
 	}
 
-	.entry-info,
-	.hide-accessible,
 	.entry-body p,
+	.entry-info,
+	.entry-footer .entry-social,
 	.entry-title,
-	.entry-footer .entry-social {
+	.hide-accessible{
 		@include media-query(null, $screen-xs) {
 			margin-left: 5%;
 		}
@@ -134,7 +134,7 @@
 	}
 }
 
-/* ---------- Form Styles ---------- */
+/* ---------- Form styles ---------- */
 
 .portlet-forms {
 	h1, h2 {
@@ -146,7 +146,10 @@
 		letter-spacing: 2px;
 	}
 
-	label, select, input, table {
+	input,
+	label,
+	select,
+	table {
 		font-family: $form-font;
 	}
 }
@@ -161,14 +164,15 @@
 }
 
 
-/* ---------- Wiki Card Styles ---------- */
+/* ---------- Wiki card styles ---------- */
 
 .panel-group .panel-title > a,
 .panel-group .panel-title > span {
 	color: $body-text-color;
 }
 
-.card .divider, .card-horizontal .divider {
+.card .divider,
+.card-horizontal .divider {
 	background-color: none;
 }
 
@@ -183,14 +187,14 @@ thead:first-child > tr:first-child > th {
 	}
 }
 
-/* ---------- Remove Borders ---------- */
+/* ---------- Remove borders ---------- */
 
 .card,
 .card-horizontal,
+.list-group,
 .navbar-default,
 .portlet-decorate .portlet-content,
-.taglib-header,
-.list-group {
+.taglib-header {
 	border-width: 0;
 	box-shadow: none;
 }
@@ -199,13 +203,14 @@ thead:first-child > tr:first-child > th {
 	display: none;
 }
 
-/* ---------- Changes Color Of Links On Wiki Entry ---------- */
+/* ---------- Changes color of links on eiki entry ---------- */
 
-.card a, .card-horizontal a {
+.card a,
+.card-horizontal a {
 	color: $light-blue-color;
 }
 
-/* ---------- Messenger Chat Window On Bottom ---------- */
+/* ---------- Messenger chat window on bottom ---------- */
 
 .chat-panel-window {
 	border: 1px solid rgba(0, 0, 0, 0.2) !important;

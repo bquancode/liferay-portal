@@ -23,7 +23,7 @@
 	}
 
 	#content::before {
-		animation: barberpole-body-case 1.5s ease-in-out 10;
+		animation: barberAnimation 1.5s ease-in-out 10;
 		background-image: linear-gradient(45deg, #171C38 25%, #0F57EA 25%, #0F57EA 50%, #171C38 50%, #171C38 75%, #0F57EA 75%, #0F57EA);
 		background-size: 150px 150px;
 		content: '';
@@ -36,7 +36,7 @@
 	}
 
 	#content::after {
-		animation: barberpole-body-case 1.5s ease-in-out 10;
+		animation: barberAnimation 1.5s ease-in-out 10;
 		background-image: linear-gradient(45deg, #171C38 25%, #0F57EA 25%, #0F57EA 50%, #171C38 50%, #171C38 75%, #0F57EA 75%, #0F57EA);
 		background-size: 150px 150px;
 		content: '';
@@ -49,7 +49,7 @@
 	}
 
 	#main-content::before {
-		animation: barberpole-body-case 1.5s ease-in-out 10;
+		animation: barberAnimation 1.5s ease-in-out 10;
 		animation-direction: reverse;
 		background-image: linear-gradient(-45deg, #0F57EA 25%, #171C38 25%, #171C38 50%, #0F57EA 50%, #0F57EA 75%, #171C38 75%, #171C38);
 		background-size: 150px 150px;
@@ -64,7 +64,7 @@
 	}
 
 	#main-content::after {
-		animation: barberpole-body-case 1.5s ease-in-out 10;
+		animation: barberAnimation 1.5s ease-in-out 10;
 		animation-direction: reverse;
 		background-image: linear-gradient(-45deg, #0F57EA 25%, #171C38 25%, #171C38 50%, #0F57EA 50%, #0F57EA 75%, #171C38 75%, #171C38);
 		background-size: 150px 150px;

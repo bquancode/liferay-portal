@@ -1,7 +1,7 @@
 /* ---------- Animations ---------- */
 
 @mixin barberAnimation($transform) {
-	animation: barberpole-body-case 0.5s linear 10;
+	animation: barberAnimation 0.5s linear 10;
 	background-image: linear-gradient(45deg, $midnight-blue-color 25%, $bright-blue-color 25%, $bright-blue-color 50%, $midnight-blue-color 50%, $midnight-blue-color 75%, $bright-blue-color 75%, $bright-blue-color);
 	background-size: 150px 150px;
 	content: '';
@@ -12,7 +12,7 @@
 	width: 100%;
 }
 
-@keyframes barberpole-body-case {
+@keyframes barberAnimation {
 	from {
 		background-position: 0 0;
 	}
@@ -31,11 +31,11 @@
 	  }
 }
 
-/* ---------- Border Styles ---------- */
+/* ---------- Border styles ---------- */
 
 $light-gray-border: 2px solid #E3E6E8;
 
-/* ---------- Colors Used For Text And Backgrounds ---------- */
+/* ---------- Text and background colors ---------- */
 
 $bright-blue-color: #0F57EA;
 $light-blue-color: #65B6F0;
@@ -46,7 +46,7 @@ $midnight-blue-color: #171C38;
 $ow-gray-color: #484848;
 $ny-red-color: #FC1C26;
 
-/* ---------- Colors That Get Pulled Throughout The Theme ---------- */
+/* ---------- Theme colors ---------- */
 
 $accent-color: $ny-red-color;
 $bg-color: #FFF;
@@ -54,7 +54,7 @@ $body-text-color: #FFF;
 $primary-color: $midnight-blue-color;
 $secondary-color: $bright-blue-color;
 
-/* ---------- Font Imports ---------- */
+/* ---------- Font imports ---------- */
 
 @font-face {
 	font-family: "Circular";
@@ -86,7 +86,7 @@ $secondary-color: $bright-blue-color;
 	src: url("../fonts/Titillium_Web/TitilliumWeb-SemiBold.ttf") format("truetype");
 }
 
-/* ---------- Font Definitions ---------- */
+/* ---------- Font definitions ---------- */
 
 $body-font: "Titillium Web";
 $form-font: "Open Sans";
@@ -94,7 +94,7 @@ $link-text: sans-serif;
 $nav-font: sans-serif;
 $title-font: "Circular";
 
-/* ---------- Mixin Definitions ---------- */
+/* ---------- Mixin definitions ---------- */
 
 @mixin btnBackground($color) {
 	background: $color;
@@ -130,7 +130,7 @@ $title-font: "Circular";
 	text-transform: $text-transform;
 }
 
-/* ---------- Shadow Styles ---------- */
+/* ---------- Shadow styles ---------- */
 
 $box-shadow: 0 10px 6px -6px #777;
 $hard-shadow: 1px 2px 0 rgba(0, 0, 0, 1);
@@ -138,6 +138,6 @@ $soft-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px 0;
 $silhouette: drop-shadow(5px 6px 10px);
 $text-shadow: 1px 2px 1px rgba(0, 0, 0, 0.3);
 
-/* ---------- Transition Styles ---------- */
+/* ---------- Transition styles ---------- */
 
 $transition: 0.2s ease-in-out;

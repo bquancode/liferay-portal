@@ -15,7 +15,6 @@
 	display: flex;
 	flex-direction: column;
 	height: inherit;
-
 	justify-content: space-evenly;
 	text-align: center;
 
@@ -52,7 +51,6 @@
 		color: $ny-red-color;
 		font-family: "Helvetica Bold";
 		font-size: 48px;
-
 		word-spacing: 10px;
 
 		@include textStyle(8px, uppercase);
@@ -65,7 +63,7 @@
 	}
 }
 
-/* ---------- Barber Moving Animation ---------- */
+/* ---------- Barber moving animation ---------- */
 
 .baber-animation::before {
 	@include barberAnimation(translateY(-100%));
@@ -75,7 +73,7 @@
 	@include barberAnimation(rotateX(180deg));
 }
 
-/* ---------- Mobile Styles ---------- */
+/* ---------- Mobile styles ---------- */
 
 @media only screen and (max-width: 480px) {
 	.welcome-container {

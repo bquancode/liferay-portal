@@ -30,9 +30,9 @@
 #portlet_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_tcPLRH9miNHg,
 #portlet_com_liferay_asset_publisher_web_portlet_AssetPublisherPortlet_INSTANCE_20xTg4IHVdzN {
 	> div.portlet-content {
-	   @include pinStripes(150px);
+		@include pinStripes(150px);
 
-	   margin-bottom: 20px;
+		margin-bottom: 20px;
 	}
 
 	table > tbody {
@@ -48,14 +48,13 @@
 .team-container {
 	border: 7px double #000;
 	border-radius: 8px;
-
-	@include pinStripes(50px);
-
 	margin-bottom: 8px;
 	margin-right: 8px;
 	padding: 1% 1% 4% 1%;
 	transition: $transition;
 	width: max-content;
+
+	@include pinStripes(50px);
 
 	img:hover {
 		cursor: pointer;
@@ -65,40 +64,45 @@
 		animation: aura 1s ease-in-out infinite alternate;
 		filter: $silhouette;
 		transform: translate(-5px, -5px);
-	 }
+	}
 
 }
 
 .team-content {
-
 	#Anamo {
-		background-image: url(../images/illios_1.png);
+		background-image: url(../../images/maps/illios_1.png);
 	}
 
 	#Ark {
-		background-image: url(../images/illios_2.png);
+		background-image: url(../../images/maps/illios_2.png);
 	}
 
 	#Jjonak {
-		background-image: url(../images/illios_3.png);
+		background-image: url(../../images/maps/illios_3.png);
 	}
+
 	#Janus {
-		background-image: url(../images/nepal_1.png);
+		background-image: url(../../images/maps/nepal_1.png);
 	}
+
 	#Mano {
-		background-image: url(../images/nepal_2.png);
+		background-image: url(../../images/maps/nepal_2.png);
 	}
+
 	#MekO {
-		background-image: url(../images/nepal_3.png);
+		background-image: url(../../images/maps/nepal_3.png);
 	}
+
 	#Libero {
-		background-image: url(../images/lijiang_1.jpg);
+		background-image: url(../../images/maps/lijiang_1.jpg);
 	}
+
 	#Pine {
-		background-image: url(../images/lijiang_2.jpg);
+		background-image: url(../../images/maps/lijiang_2.jpg);
 	}
+
 	#Saebyeolbe {
-		background-image: url(../images/lijiang_3.jpg);
+		background-image: url(../../images/maps/lijiang_3.jpg);
 	}
 
 	.player-card {
@@ -127,10 +131,9 @@
 			font-family: "Helvetica Bold";
 			font-size: 3rem;
 			font-weight: bold;
+			text-shadow: -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
 
 			@include textStyle(2px, uppercase);
-
-			text-shadow: -1px -1px 0 #FFF, 1px -1px 0 #FFF, -1px 1px 0 #FFF, 1px 1px 0 #FFF;
 		}
 
 		.player-number {
@@ -152,18 +155,19 @@
 		.player-position {
 			color: $body-text-color;
 			font-family: $title-font;
+			text-shadow: $text-shadow;
 
 			@include textStyle(2px, uppercase);
-
-			text-shadow: $text-shadow;
 		}
 
 		&.DPS {
 			background-color: $ny-red-color;
 		}
+
 		&.Support {
 			background-color: #FDCB6E;
 		}
+
 		&.Tank {
 			background-color:#0984E3;
 		}
@@ -171,7 +175,6 @@
 }
 
 #layout-column_column-2 {
-
 	display: flex;
 	justify-content: center;
 	align-items: center;
